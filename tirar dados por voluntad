@@ -1,0 +1,23 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+using namespace std;
+
+void TIRAR_DADOS(int &DADO);
+
+int main(){
+    srand(time(0));
+    int DADO; 
+
+    TIRAR_DADOS(DADO);
+    cout  << "LANZAMIENO DE DADO #" << DADO << endl;
+    return 0;
+}
+
+void TIRAR_DADOS(int &DADO)
+{
+    cout << "PRESIONE UNA TECLA PARA TIRAR EL DADO" << endl;
+    getchar();                   /*getchar: espera a que se ingrese un valor de 
+                                tipo char para proseguir con la ejecucion del programa*/
+    DADO = 1 + rand() % 6;
+}
