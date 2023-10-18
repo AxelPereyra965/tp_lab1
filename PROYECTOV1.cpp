@@ -11,17 +11,19 @@ string palo_aleatoreo(string tipo_palo[4]);
 void repartir_cartasj1(string &nombre_j1, string corral_j1[][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[]);
 void repartir_cartasj2(string &nombre_j2, string corral_j2[][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[]);
 void empieza_primero(string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &nombre_j1, string &nombre_j2, string &INICIA_PARTIDA, string &carta_repetida);
-
+int lanzar_dado(const int caras_dado=6);
 int main()
 {
     const int cantidad_repartida = 5; // la cantidad de cartas repartidas
+    const int caras_dado=6; //la cantidad de caras del dado
 
     int opcion; // se usa en el menú para elegir la opción
+    int dado_j1,dado_j2;
     string nombre_j1, nombre_j2, INICIA_PARTIDA, carta_repetida; ///VARIABLE "CARTA_REPETIDA" ES OPCIONAL, SE PUEDE BORRAR SI MOLESTA (BORRARLA EN EL SCOPE DE LAS FUNCIONES TMB)
     string numero_cartas[5] = {"A", "K", "Q", "J", "10"};
     string tipo_palo[4] = {"trebol", "corazon", "pica", "diamante"};
     string corral_j1[cantidad_repartida][2], corral_j2[cantidad_repartida][2]; // las 5 cartas que les toquen a cada uno, cada carta tiene número y palo
-
+    string lanzo_dado;//nos sirve para tener un seguimiento de quien tiro en cada momento
     srand(time(0));
 
     do {
@@ -42,12 +44,22 @@ int main()
             cout << "CLUTCH" << endl;
             cout << "------------------------------------------------------------------------" << endl;
 
-            repartir_cartasj1(nombre_j1, corral_j1, cantidad_repartida, numero_cartas, tipo_palo);
-            repartir_cartasj2(nombre_j2, corral_j2, cantidad_repartida, numero_cartas, tipo_palo);
+            repartir_cartasj1(nombre_j1, corral_j1, cantidad_repartida, numero_cartas, tipo_palo);cout<<endl;
+            repartir_cartasj2(nombre_j2, corral_j2, cantidad_repartida, numero_cartas, tipo_palo);cout<<endl;
             empieza_primero(corral_j1, corral_j2, numero_cartas, nombre_j1, nombre_j2, INICIA_PARTIDA, carta_repetida);
-            cout << "carta que hizo jugar primero al jugador: " << carta_repetida << endl; ///ESTE APARTADO ES OPCIONAL, LO HICE PARA VER SI REALMENTE FUNCIONABA LA FUNCION DE ABAJO
-            cout << "el jugador " << INICIA_PARTIDA << " sera el primero en tirar los dados" << endl;
+            cout << "el jugador " << INICIA_PARTIDA << " sera el primero en tirar el dado" << endl;
 
+            if(INICIA_PARTIDA==nombre_j1)
+            {
+                dado_j1=lanzar_dado();
+                cout<<"el jugador "<<nombre_j1<<" saco un "<<dado_j1<<endl;
+                lanzo_dado = nombre_j1; //con esta variable sabemos quien lanzo, para que el otro siga
+            }else
+           {
+               dado_j2=lanzar_dado();
+               cout<<"el jugador "<<nombre_j2<<" saco un "<<dado_j2<<endl;
+                lanzo_dado = nombre_j2;
+            }
         }
 
     } while (opcion != 0);
@@ -73,13 +85,13 @@ void elegir_nombres(string &nombre_j1, string &nombre_j2)
         cin >> confirmacion;
 
         cout << "------------------------------------------------------------------------" << endl;
-    } while (confirmacion != 's'); 
+    } while (confirmacion != 's');
 }
 
 // Función para que tire el número de una carta aleatoriamente
 string numero_aleatoreo(string numero_cartas[5])
 {
-    return numero_cartas[rand() % 5];
+    return numero_cartas [rand() % 5];
 }
 
 // Función para que tire el palo de una carta aleatoriamente
@@ -104,7 +116,6 @@ void repartir_cartasj1(string &nombre_j1, string corral_j1[][2], const int canti
 
 
 //funcion para repartir las cartas al j2 y guardarlas en su corral
-
 void repartir_cartasj2(string &nombre_j2, string corral_j2[][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[])
 {
     cout << "Cartas repartidas para el jugador " << nombre_j2 << endl;
@@ -146,4 +157,11 @@ void empieza_primero(string corral_j1[][2], string corral_j2[][2], string numero
             I ++;
         }
     }
+}
+
+
+//FUNCION PARA LANZAR UN DADO ALEATOREO
+int lanzar_dado(const int caras_dado)
+{
+    return rand() % caras_dado + 1; //el +1 es para que la cara minima sea 1 y no 0
 }
