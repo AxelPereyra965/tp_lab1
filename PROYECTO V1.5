@@ -1,30 +1,34 @@
 #include <iostream>
 #include <ctime>
-#include <cstdlib> ///incluye srand
+#include <cstdlib>
+#include <string>
 
 using namespace std;
 
 // Declaración de funciones
+void cargar_mazo(string mazo[][4], string numero_cartas[5], string tipo_palo[4]);
 void elegir_nombres(string &nombre_j1, string &nombre_j2);
-string numero_aleatoreo(string numero_cartas[5]);
-string palo_aleatoreo(string tipo_palo[4]);
-void repartir_cartasj1(string &nombre_j1, string corral_j1[][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[]);
-void repartir_cartasj2(string &nombre_j2, string corral_j2[][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[]);
+string numero_aleatorio(string numero_cartas[5]);
+string palo_aleatorio(string tipo_palo[4]);
+void repartir_cartas_j1(bool (&cartas_usando)[5][4], string nombre_j1, string corral_j1[5][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[]);
+void repartir_cartas_j2(bool (&cartas_usando)[5][4], string nombre_j2, string corral_j2[5][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[]);
 void empieza_primero(string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &nombre_j1, string &nombre_j2, string &INICIA_PARTIDA, string &carta_repetida);
-int lanzar_dado(const int caras_dado=6);
+int lanzar_dado(const int caras_dado = 6);
 
 int main()
 {
-    const int cantidad_repartida = 5; // la cantidad de cartas repartidas
-    const int caras_dado=6; //la cantidad de caras del dado
+    const int cantidad_repartida = 5;
+    const int caras_dado = 6;
 
-    int opcion; // se usa en el menú para elegir la opción
-    int dado_j1,dado_j2;
-    string nombre_j1, nombre_j2, INICIA_PARTIDA, carta_repetida; ///VARIABLE "CARTA_REPETIDA" ES OPCIONAL, SE PUEDE BORRAR SI MOLESTA (BORRARLA EN EL SCOPE DE LAS FUNCIONES TMB)
+    int opcion;
+    int dado_j1, dado_j2;
+    string nombre_j1, nombre_j2, INICIA_PARTIDA, carta_repetida;
     string numero_cartas[5] = {"A", "K", "Q", "J", "10"};
     string tipo_palo[4] = {"trebol", "corazon", "pica", "diamante"};
-    string corral_j1[cantidad_repartida][2], corral_j2[cantidad_repartida][2]; // las 5 cartas que les toquen a cada uno, cada carta tiene número y palo
-    string lanzo_dado;//nos sirve para tener un seguimiento de quien tiro en cada momento
+    string corral_j1[cantidad_repartida][2], corral_j2[cantidad_repartida][2];
+    string mazo [5][4];
+    bool cartas_usando [5][4]={false}; //esta matriz nos sirve para no repetir carta
+
     srand(time(NULL));
 
     do {
@@ -37,51 +41,59 @@ int main()
         cout << "0 - SALIR" << endl;
         cin >> opcion;
 
-        switch(opcion){
-            case 1: ///CASO 1; DESARROLLO PRINCIPAL DEL JUEGO
+        switch (opcion) {
+            case 1:
+                elegir_nombres(nombre_j1, nombre_j2);
+                cout << "Los nombres son " << nombre_j1 << " y " << nombre_j2 << endl;
+                cout << "CLUTCH" << endl;
+                cout << "------------------------------------------------------------------------" << endl;
 
-            elegir_nombres(nombre_j1, nombre_j2); // al pasar por referencia no hace falta asignar porque la función ya lo hace
-            cout << "Los nombres son " << nombre_j1 << " y " << nombre_j2 << endl;
+                cargar_mazo(mazo, numero_cartas, tipo_palo);
+                repartir_cartas_j1(cartas_usando, nombre_j1, corral_j1, cantidad_repartida, numero_cartas, tipo_palo);
+                cout << endl;
+                repartir_cartas_j2(cartas_usando, nombre_j2, corral_j2, cantidad_repartida, numero_cartas, tipo_palo);
+                cout << endl;
+                empieza_primero(corral_j1, corral_j2, numero_cartas, nombre_j1, nombre_j2, INICIA_PARTIDA, carta_repetida);
+                cout << "El jugador " << INICIA_PARTIDA << " será el primero en tirar el dado" << endl;
 
-            cout << "CLUTCH" << endl;
-            cout << "------------------------------------------------------------------------" << endl;
+                if (INICIA_PARTIDA == nombre_j1) {
+                    dado_j1 = lanzar_dado();
+                    cout << "El jugador " << nombre_j1 << " sacó un " << dado_j1 << endl;
+                } else {
+                    dado_j2 = lanzar_dado();
+                    cout << "El jugador " << nombre_j2 << " sacó un " << dado_j2 << endl;
+                }
 
-            repartir_cartasj1(nombre_j1, corral_j1, cantidad_repartida, numero_cartas, tipo_palo);cout<<endl;
-            repartir_cartasj2(nombre_j2, corral_j2, cantidad_repartida, numero_cartas, tipo_palo);cout<<endl;
-            empieza_primero(corral_j1, corral_j2, numero_cartas, nombre_j1, nombre_j2, INICIA_PARTIDA, carta_repetida);
-            cout << "el jugador " << INICIA_PARTIDA << " sera el primero en tirar el dado" << endl;
+                break;
+            case 2:
 
-            if(INICIA_PARTIDA==nombre_j1)
-            {
-                dado_j1=lanzar_dado();
-                cout<<"el jugador "<<nombre_j1<<" saco un "<<dado_j1<<endl;
-                lanzo_dado = nombre_j1; //con esta variable sabemos quien lanzo, para que el otro siga
-            }else
-           {
-               dado_j2=lanzar_dado();
-               cout<<"el jugador "<<nombre_j2<<" saco un "<<dado_j2<<endl;
-                lanzo_dado = nombre_j2;
-            }
+                break;
+            case 3:
 
-            break;
-            case 2: ///CASO 2; SON LAS ESTADISTICAS 
-
-            break;
-            case 3: /// CASO 3; SERAN LOS CREDITOS FINALES
-
-            break;
+                break;
             default:
-            cout << "------------------------------------------------------------------------" << endl;
-            cout << "      OPCION INCORRECTA, ELIJA NUEVAMENTE ENTRE ESAS TRES OPCIONES" << endl;
-            cout << "------------------------------------------------------------------------" << endl;
+                cout << "------------------------------------------------------------------------" << endl;
+                cout << "      OPCION INCORRECTA, ELIJA NUEVAMENTE ENTRE ESAS TRES OPCIONES" << endl;
+                cout << "------------------------------------------------------------------------" << endl;
         }
 
     } while (opcion != 0);
 
     return 0;
 }
+//----------------------------------------------funciones-------------------------------------------
 
-// Función para elegir los nombres
+// Funcion para cargar el mazo de cartas
+void cargar_mazo(string mazo[][4], string numero_cartas[5], string tipo_palo[4])
+{
+    for (int x = 0; x < 5; x++) {
+        for (int i = 0; i < 4; i++) {
+            mazo[x][i] = numero_cartas[x] + " " + tipo_palo[i];
+        }
+    }
+}
+
+// Funcion para que los jugadores elijan sus nombres
 void elegir_nombres(string &nombre_j1, string &nombre_j2)
 {
     char confirmacion;
@@ -98,92 +110,123 @@ void elegir_nombres(string &nombre_j1, string &nombre_j2)
         cin >> nombre_j2;
         cout << "Pulse 'S' PARA CONFIRMAR" << endl;
         cin >> confirmacion;
-        if(confirmacion == 's' || confirmacion == 'S'){
+        if (confirmacion == 's' || confirmacion == 'S') {
             CONFIRMAR_NOMBRE = true;
             cout << "------------------------------------------------------------------------" << endl;
-        }else{
+        } else {
             cout << "------------------------------------------------------------------------" << endl;
-            cout << "           PORFAVOR, PULSE LA TECLA 'S' PARA CONTINUAR" << endl;
+            cout << "           POR FAVOR, PULSE LA TECLA 'S' PARA CONTINUAR" << endl;
             cout << "------------------------------------------------------------------------" << endl;
         }
-        
+
     } while (CONFIRMAR_NOMBRE != true);
 }
 
-// Función para que tire el número de una carta aleatoriamente
-string numero_aleatoreo(string numero_cartas[5])
+// Funcion para obtener un número de carta aleatorio
+string numero_aleatorio(string numero_cartas[5])
 {
-    return numero_cartas [rand() % 5];
+    return numero_cartas[rand() % 5];
 }
 
-// Función para que tire el palo de una carta aleatoriamente
-string palo_aleatoreo(string tipo_palo[4])
+// Funcion para obtener un palo de carta aleatorio
+string palo_aleatorio(string tipo_palo[4])
 {
     return tipo_palo[rand() % 4];
 }
 
-
-//funcion para repartir las cartas al j1 y guardarlas en su corral
-void repartir_cartasj1(string &nombre_j1, string corral_j1[][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[])
+// Funcion para repartir cartas al jugador 1
+void repartir_cartas_j1(bool (&cartas_usando)[5][4], string nombre_j1, string corral_j1[5][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[])
 {
+    bool bandera;
+
     cout << "Cartas repartidas para el jugador " << nombre_j1 << endl;
 
-    for (int x = 0; x < cantidad_repartida; x++)
+    for (int x = 0; x < cantidad_repartida; x++) //este for es para que reparta 5 cartas
     {
-        corral_j1[x][0] = numero_aleatoreo(numero_cartas); // carga el Número de carta al corral
-        corral_j1[x][1] = palo_aleatoreo(tipo_palo);      // carga el Palo al corral
-        cout << corral_j1[x][0] << " " << corral_j1[x][1] << endl;//esto es para mostrar
+       bandera = false;
+       while(bandera!=true)
+       {
+           int numero = rand() % 5;
+           int palo = rand() % 4;
+
+           if(cartas_usando[numero][palo]==false)
+           {
+               //x es el numero de la carta
+               corral_j1[x][0]=numero_cartas[numero]; //en la posicion 0 guardo el numero de carta
+               corral_j1[x][1]=tipo_palo[palo]; //en la posicion 1 el palo de esa carta
+               cartas_usando[numero][palo]=true;
+               bandera=true;
+           }
+        }
+
+        cout << corral_j1[x][0] << " " << corral_j1[x][1] << endl;
     }
+
 }
 
-
-//funcion para repartir las cartas al j2 y guardarlas en su corral
-void repartir_cartasj2(string &nombre_j2, string corral_j2[][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[])
+// Funcion para repartir cartas al jugador 2
+void repartir_cartas_j2(bool (&cartas_usando)[5][4], string nombre_j2, string corral_j2[5][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[])
 {
+    bool bandera;
+
+
     cout << "Cartas repartidas para el jugador " << nombre_j2 << endl;
 
-    for (int x = 0; x < cantidad_repartida; x++)
+    for (int x = 0; x < cantidad_repartida; x++) //este for es para que reparta 5 cartas
     {
-        corral_j2[x][0] = numero_aleatoreo(numero_cartas); // carga el Número de carta al corral
-        corral_j2[x][1] = palo_aleatoreo(tipo_palo);      // carga el Palo al corral
-        cout << corral_j2[x][0] << " " << corral_j2[x][1] << endl;//esto es para mostrar
+       bandera = false;
+       while(bandera!=true)
+       {
+           int numero = rand() % 5;
+           int palo = rand() % 4;
+
+           if(cartas_usando[numero][palo]==false)
+           {
+               //x es el numero de la carta
+               corral_j2[x][0]=numero_cartas[numero]; //en la posicion 0 guardo el numero de carta
+               corral_j2[x][1]=tipo_palo[palo]; //en la posicion 1 el palo de esa carta
+               cartas_usando[numero][palo]=true;
+               bandera=true;
+           }
+        }
+
+        cout << corral_j2[x][0] << " " << corral_j2[x][1] << endl;
     }
 }
 
-///FUNCION PARA DECIDIR QUIEN DE LOS JUGADORES EMPIEZA PRIMERO
+// Funcion para decidir quien empieza primero
 void empieza_primero(string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &nombre_j1, string &nombre_j2, string &INICIA_PARTIDA, string &carta_repetida)
 {
     bool BANDERA_PRIMERIZO = false;
     int I = 0, CONT_J1, CONT_J2;
 
-    while(BANDERA_PRIMERIZO != true){
+    while (BANDERA_PRIMERIZO != true) {
         CONT_J1 = CONT_J2 = 0;
 
-        for(int x = 0 ; x < 5 ; x ++){
-            if(corral_j1[x][0] == numero_cartas[I]){
-                CONT_J1 ++;
+        for (int x = 0; x < 5; x++) {
+            if (corral_j1[x][0] == numero_cartas[I]) {
+                CONT_J1++;
             }
-            if(corral_j2[x][0] == numero_cartas[I]){
-                CONT_J2 ++;
+            if (corral_j2[x][0] == numero_cartas[I]) {
+                CONT_J2++;
             }
         }
-        if(CONT_J1 > CONT_J2){
+        if (CONT_J1 > CONT_J2) {
             INICIA_PARTIDA = nombre_j1;
             BANDERA_PRIMERIZO = true;
             carta_repetida = numero_cartas[I];
-        }else if(CONT_J2 > CONT_J1){
+        } else if (CONT_J2 > CONT_J1) {
             INICIA_PARTIDA = nombre_j2;
             BANDERA_PRIMERIZO = true;
             carta_repetida = numero_cartas[I];
-        }else{
-            I ++;
+        } else {
+            I++;
         }
     }
 }
 
-
-//FUNCION PARA LANZAR UN DADO ALEATOREO
+// Funcion para lanzar un dado aleatorio
 int lanzar_dado(const int caras_dado)
 {
-    return rand() % caras_dado + 1; //el +1 es para que la cara minima sea 1 y no 0
+    return rand() % caras_dado + 1;
 }
