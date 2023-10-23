@@ -58,11 +58,11 @@ int main()
                 repartir_cartas_j2(cartas_usando, nombre_j2, corral_j2, cantidad_repartida, numero_cartas, tipo_palo);
                 cout << endl;
                 empieza_primero(corral_j1, corral_j2, numero_cartas, nombre_j1, nombre_j2, INICIA_PARTIDA, carta_repetida);
-                cout << "El jugador " << INICIA_PARTIDA << " será el primero en tirar el dado" << endl;
+                cout << "El jugador " << INICIA_PARTIDA << " sera el primero en tirar el dado" << endl;
 
                 if (INICIA_PARTIDA == nombre_j1) {
                     dado_j1 = lanzar_dado();
-                    cout << "El jugador " << nombre_j1 << " sacó un " << dado_j1 << endl;
+                    cout << "El jugador " << nombre_j1 << " saco un " << dado_j1 << endl;
                     J1_O_J2 = nombre_j1;
                     lanzo_dado=nombre_j1;
                     dado_j1 = 1;
