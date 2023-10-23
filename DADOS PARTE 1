@@ -6,7 +6,6 @@ using namespace std;
 
 // Declaración de funciones
 void cargar_mazo(string mazo[][4], string numero_cartas[5], string tipo_palo[4]);
-void OPCION_DADO_1(string mazo[][4], string numero_cartas[5], string tipo_palo[4], string corral_j1[5][2], string corral_j2 [5][2], bool cartas_usando [5][4], string J1_O_J2, string nombre_j1, string nombre_j2);
 void elegir_nombres(string &nombre_j1, string &nombre_j2);
 string numero_aleatorio(string numero_cartas[5]);
 string palo_aleatorio(string tipo_palo[4]);
@@ -14,7 +13,8 @@ void repartir_cartas_j1(bool (&cartas_usando)[5][4], string nombre_j1, string co
 void repartir_cartas_j2(bool (&cartas_usando)[5][4], string nombre_j2, string corral_j2[5][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[]);
 void empieza_primero(string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &nombre_j1, string &nombre_j2, string &INICIA_PARTIDA, string &carta_repetida);
 int lanzar_dado(const int caras_dado = 6);
-
+void OPCION_DADO_1(string mazo[][4], string numero_cartas[5], string tipo_palo[4], string corral_j1[5][2], string corral_j2 [5][2], bool cartas_usando [5][4], string J1_O_J2, string nombre_j1, string nombre_j2);
+void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2);
 int main()
 {
     const int cantidad_repartida = 5;
@@ -27,6 +27,7 @@ int main()
     string tipo_palo[4] = {"trebol", "corazon", "pica", "diamante"};
     string corral_j1[cantidad_repartida][2], corral_j2[cantidad_repartida][2];
     string mazo [5][4];
+    string lanzo_dado; //nos sirve para saber a quien le toca lanzar
     bool cartas_usando [5][4]={false}; //esta matriz nos sirve para no repetir carta
 
     srand(time(NULL));
@@ -60,17 +61,21 @@ int main()
                     dado_j1 = lanzar_dado();
                     cout << "El jugador " << nombre_j1 << " sacó un " << dado_j1 << endl;
                     J1_O_J2 = nombre_j1;
+                    lanzo_dado=nombre_j1;
                     dado_j1 = 1;
                     if(dado_j1 == 1){
-                        OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, J1_O_J2, nombre_j1, nombre_j2);
+                          OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+                        //OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, J1_O_J2, nombre_j1, nombre_j2);
                     }
                 } else {
                     dado_j2 = lanzar_dado();
                     cout << "El jugador " << nombre_j2 << " sacó un " << dado_j2 << endl;
                     J1_O_J2 = nombre_j2;
+                    lanzo_dado=nombre_j2;
                     dado_j2 = 1;
                     if(dado_j2 == 1){
-                        OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, J1_O_J2, nombre_j1, nombre_j2);
+                        OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+                        //OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, J1_O_J2, nombre_j1, nombre_j2);
                     }
                 }
 
@@ -338,4 +343,107 @@ void OPCION_DADO_1(string mazo[][4], string numero_cartas[5], string tipo_palo[4
     cout << "#5 : " << corral_j2 [4][0] << " " << corral_j2 [4][1] << endl;
     cout << "------------------------------------------" << endl;
     }
+}
+
+
+
+//funcion para la cara 4 del dado
+void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2)
+{
+
+    int CARTA; // la carta que se eligio para intercambiar
+    int CARTA_INTERCAMBIO; // la carta por la que se va a intercambiar
+    string NUMERO_CARTA, NUMERO_PALO;
+    string CARTA_ELEGIDA[2]; // carta auxiliar para el intercambio
+
+    if (lanzo_dado == nombre_j2) // pregunto quien lanzo el dado en la ronda anterior para saber quien sigue
+    {
+        cout << endl;
+        cout << "OPCION #4: EL JUGADOR " << nombre_j1 << " PODRA INTERCAMBIAR DOS CARTAS DE SU PROPIO CORRAL" << endl;
+        cout << "===================================================================================================" << endl;
+
+        cout << "   SELECCIONE UNA CARTA PARA INTERCAMBIO  " << endl;
+        cout << "------------------------------------------" << endl;
+        cout << "#1 : " << corral_j1[0][0] << " " << corral_j1[0][1] << endl;
+        cout << "#2 : " << corral_j1[1][0] << " " << corral_j1[1][1] << endl;
+        cout << "#3 : " << corral_j1[2][0] << " " << corral_j1[2][1] << endl; /// MAZO ANTES DE CAMBIO DE CARTA
+        cout << "#4 : " << corral_j1[3][0] << " " << corral_j1[3][1] << endl;
+        cout << "#5 : " << corral_j1[4][0] << " " << corral_j1[4][1] << endl;
+        cout << "------------------------------------------" << endl;
+        cin >> CARTA;
+        NUMERO_CARTA = corral_j1[CARTA - 1][0];
+        NUMERO_PALO = corral_j1[CARTA - 1][1];
+
+        CARTA_ELEGIDA[0] = NUMERO_CARTA;
+        CARTA_ELEGIDA[1] = NUMERO_PALO; // aca se guarda la carta elegida para intercambio
+
+        cout << "  SELECCIONE POR QUE CARTA DESEA INTERCAMBIARLA  " << endl;
+        cout << "------------------------------------------" << endl;
+        cin >> CARTA_INTERCAMBIO;
+
+        corral_j1[CARTA - 1][0] = corral_j1[CARTA_INTERCAMBIO - 1][0]; // intercambio de la primera carta seleccionada
+        corral_j1[CARTA - 1][1] = corral_j1[CARTA_INTERCAMBIO - 1][1];
+
+        corral_j1[CARTA_INTERCAMBIO - 1][0] = CARTA_ELEGIDA[0]; // intercambio de la segunda carta por la auxiliar
+        corral_j1[CARTA_INTERCAMBIO - 1][1] = CARTA_ELEGIDA[1];
+
+        cout << "-----------------------------------------------------" << endl;
+        cout << "Se intercambio la carta #" << CARTA << " por la #" << CARTA_INTERCAMBIO << endl;
+        cout << "------------------------------------------------------" << endl;
+        cout << endl;
+
+        cout << "            MAZO actualizado              " << endl;
+        cout << "------------------------------------------" << endl;
+        cout << "#1 : " << corral_j1[0][0] << " " << corral_j1[0][1] << endl;
+        cout << "#2 : " << corral_j1[1][0] << " " << corral_j1[1][1] << endl;
+        cout << "#3 : " << corral_j1[2][0] << " " << corral_j1[2][1] << endl;
+        cout << "#4 : " << corral_j1[3][0] << " " << corral_j1[3][1] << endl;
+        cout << "#5 : " << corral_j1[4][0] << " " << corral_j1[4][1] << endl;
+        cout<<endl;
     }
+    else
+    {
+        cout << endl;
+        cout << "OPCION #4: EL JUGADOR " << nombre_j2 << " PODRA INTERCAMBIAR DOS CARTAS DE SU PROPIO CORRAL" << endl;
+        cout << "===================================================================================================" << endl;
+
+        cout << "   SELECCIONE UNA CARTA PARA INTERCAMBIO  " << endl;
+        cout << "------------------------------------------" << endl;
+        cout << "#1 : " << corral_j2[0][0] << " " << corral_j2[0][1] << endl;
+        cout << "#2 : " << corral_j2[1][0] << " " << corral_j2[1][1] << endl;
+        cout << "#3 : " << corral_j2[2][0] << " " << corral_j2[2][1] << endl;
+        cout << "#4 : " << corral_j2[3][0] << " " << corral_j2[3][1] << endl;
+        cout << "#5 : " << corral_j2[4][0] << " " << corral_j2[4][1] << endl;
+        cout << "------------------------------------------" << endl;
+        cin >> CARTA;
+        NUMERO_CARTA = corral_j2[CARTA - 1][0];
+        NUMERO_PALO = corral_j2[CARTA - 1][1];
+
+        CARTA_ELEGIDA[0] = NUMERO_CARTA;
+        CARTA_ELEGIDA[1] = NUMERO_PALO; // aca se guarda la carta elegida para intercambio
+
+        cout << "  SELECCIONE POR QUE CARTA DESEA INTERCAMBIARLA  " << endl;
+        cout << "------------------------------------------" << endl;
+        cin >> CARTA_INTERCAMBIO;
+
+        corral_j2[CARTA - 1][0] = corral_j2[CARTA_INTERCAMBIO - 1][0]; // intercambio de la primera carta seleccionada
+        corral_j2[CARTA - 1][1] = corral_j2[CARTA_INTERCAMBIO - 1][1];
+
+        corral_j2[CARTA_INTERCAMBIO - 1][0] = CARTA_ELEGIDA[0]; // intercambio de la segunda carta por la auxiliar
+        corral_j2[CARTA_INTERCAMBIO - 1][1] = CARTA_ELEGIDA[1];
+
+        cout << "-----------------------------------------------------" << endl;
+        cout << "Se intercambio la carta #" << CARTA << " por la #" << CARTA_INTERCAMBIO << endl;
+        cout << "-----------------------------------------------------" << endl;
+        cout << endl;
+
+        cout << "            MAZO actualizado              " << endl;
+        cout << "------------------------------------------" << endl;
+        cout << "#1 : " << corral_j2[0][0] << " " << corral_j2[0][1] << endl;
+        cout << "#2 : " << corral_j2[1][0] << " " << corral_j2[1][1] << endl;
+        cout << "#3 : " << corral_j2[2][0] << " " << corral_j2[2][1] << endl;
+        cout << "#4 : " << corral_j2[3][0] << " " << corral_j2[3][1] << endl;
+        cout << "#5 : " << corral_j2[4][0] << " " << corral_j2[4][1] << endl;
+        cout<<endl;
+    }
+}
