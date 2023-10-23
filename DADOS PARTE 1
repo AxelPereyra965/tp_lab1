@@ -15,6 +15,7 @@ void empieza_primero(string corral_j1[][2], string corral_j2[][2], string numero
 int lanzar_dado(const int caras_dado = 6);
 void OPCION_DADO_1(string mazo[][4], string numero_cartas[5], string tipo_palo[4], string corral_j1[5][2], string corral_j2 [5][2], bool cartas_usando [5][4], string J1_O_J2, string nombre_j1, string nombre_j2);
 void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2);
+void OPcion_DADO_5(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2, bool (&cartas_bloqueadas_j1)[5][2], bool (&cartas_bloqueadas_j2)[5][2], int cantidad_repartida);
 int main()
 {
     const int cantidad_repartida = 5;
@@ -28,6 +29,8 @@ int main()
     string corral_j1[cantidad_repartida][2], corral_j2[cantidad_repartida][2];
     string mazo [5][4];
     string lanzo_dado; //nos sirve para saber a quien le toca lanzar
+    bool cartas_bloqueadas_j1[cantidad_repartida][2]={false};
+    bool cartas_bloqueadas_j2[cantidad_repartida][2]={false};//nos sirven para saber que carta esta bloqueada (cara 5 del dado)
     bool cartas_usando [5][4]={false}; //esta matriz nos sirve para no repetir carta
 
     srand(time(NULL));
@@ -64,7 +67,8 @@ int main()
                     lanzo_dado=nombre_j1;
                     dado_j1 = 1;
                     if(dado_j1 == 1){
-                          OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+                        OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
+                          //OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
                         //OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, J1_O_J2, nombre_j1, nombre_j2);
                     }
                 } else {
@@ -74,7 +78,8 @@ int main()
                     lanzo_dado=nombre_j2;
                     dado_j2 = 1;
                     if(dado_j2 == 1){
-                        OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+                        OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
+                        //OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
                         //OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, J1_O_J2, nombre_j1, nombre_j2);
                     }
                 }
@@ -447,3 +452,84 @@ void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
         cout<<endl;
     }
 }
+
+//funcion para la cara 5 del dado
+void OPcion_DADO_5(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2, bool (&cartas_bloqueadas_j1)[5][2], bool (&cartas_bloqueadas_j2)[5][2], int cantidad_repartida)
+{
+
+    int CARTA; // la carta que se eligio para bloquear
+    bool bandera = false;
+
+
+    if (lanzo_dado == nombre_j2) // pregunto quien lanzo el dado en la ronda anterior para saber quien sigue
+    {
+
+        cout << endl;
+        cout << "OPCION #5: EL JUGADOR " << nombre_j1 << " PODRA BLOQUEAR UNA CARTA DEL CORRAL" << endl;
+        cout << "===================================================================================================" << endl;
+
+        while(bandera!=true)
+        {
+            cout << "   SELECCIONE UNA CARTA PARA BLOQUEAR  " << endl;
+            cout << "------------------------------------------" << endl;
+            cout << "#1 : " << corral_j1[0][0] << " " << corral_j1[0][1] << endl;
+            cout << "#2 : " << corral_j1[1][0] << " " << corral_j1[1][1] << endl;
+            cout << "#3 : " << corral_j1[2][0] << " " << corral_j1[2][1] << endl;
+            cout << "#4 : " << corral_j1[3][0] << " " << corral_j1[3][1] << endl;
+            cout << "#5 : " << corral_j1[4][0] << " " << corral_j1[4][1] << endl;
+            cout << "------------------------------------------" << endl;
+            cin >> CARTA;
+
+            if (cartas_bloqueadas_j1[CARTA - 1][0]== false) //pregunto si es carta ya esta bloqueada
+            {
+                if(cartas_bloqueadas_j1[CARTA - 1][1]== false)
+                {
+                    cartas_bloqueadas_j1[CARTA-1][0]=true;
+                    cartas_bloqueadas_j1[CARTA-1][1]=true;
+                    bandera=true;
+                    cout<<"la carta n#"<<CARTA<<" fue bloqueada"<<endl;
+                }
+
+            }else
+            {
+                cout<<"esta carta ya esta bloqueada, por favor elija otra"<<endl;
+            }
+         }
+
+      }
+      else
+      {
+          cout << endl;
+        cout << "OPCION #5: EL JUGADOR " << nombre_j2 << " PODRA BLOQUEAR UNA CARTA DEL CORRAL" << endl;
+        cout << "===================================================================================================" << endl;
+
+        while(bandera!=true)
+        {
+            cout << "   SELECCIONE UNA CARTA PARA BLOQUEAR  " << endl;
+            cout << "------------------------------------------" << endl;
+            cout << "#1 : " << corral_j2[0][0] << " " << corral_j2[0][1] << endl;
+            cout << "#2 : " << corral_j2[1][0] << " " << corral_j2[1][1] << endl;
+            cout << "#3 : " << corral_j2[2][0] << " " << corral_j2[2][1] << endl;
+            cout << "#4 : " << corral_j2[3][0] << " " << corral_j2[3][1] << endl;
+            cout << "#5 : " << corral_j2[4][0] << " " << corral_j2[4][1] << endl;
+            cout << "------------------------------------------" << endl;
+            cin >> CARTA;
+
+
+            if (cartas_bloqueadas_j2[CARTA - 1][0] && cartas_bloqueadas_j2[CARTA - 1][1]== false) //pregunto si es carta ya esta bloqueada
+            {
+                if(cartas_bloqueadas_j1[CARTA - 1][1]== false)
+                {
+                    cartas_bloqueadas_j1[CARTA-1][0]=true;
+                    cartas_bloqueadas_j1[CARTA-1][1]=true;
+                    bandera=true;
+                    cout<<"la carta n#"<<CARTA<<" fue bloqueada"<<endl;
+                }
+            }else
+            {
+                cout<<"esta carta ya esta bloqueada, por favor elija otra"<<endl;
+            }
+         }
+      }
+}
+
