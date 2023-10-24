@@ -13,11 +13,12 @@ void repartir_cartas_j1(bool (&cartas_usando)[5][4], string nombre_j1, string co
 void repartir_cartas_j2(bool (&cartas_usando)[5][4], string nombre_j2, string corral_j2[5][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[]);
 void empieza_primero(string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &nombre_j1, string &nombre_j2, string &INICIA_PARTIDA, string &carta_repetida);
 int lanzar_dado(const int caras_dado = 6);
-void OPCION_DADO_1(string mazo[][4], string numero_cartas[5], string tipo_palo[4], string corral_j1[5][2], string corral_j2 [5][2], bool cartas_usando [5][4], string J1_O_J2, string nombre_j1, string nombre_j2);
+//FUNCIONES DE OPCIONES DEL DADO
+void OPCION_DADO_1(string (&mazo)[][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2);
+void OPCION_DADO_2(string (&mazo)[][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2);
 void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2);
-void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2, bool (&cartas_bloqueadas_j1)[5][2], bool (&cartas_bloqueadas_j2)[5][2]);
+void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2);
 void OPcion_DADO_5(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2, bool (&cartas_bloqueadas_j1)[5][2], bool (&cartas_bloqueadas_j2)[5][2], int cantidad_repartida);
-int main()
 {
     const int cantidad_repartida = 5;
     const int caras_dado = 6;
@@ -61,29 +62,31 @@ int main()
                 empieza_primero(corral_j1, corral_j2, numero_cartas, nombre_j1, nombre_j2, INICIA_PARTIDA, carta_repetida);
                 cout << "El jugador " << INICIA_PARTIDA << " sera el primero en tirar el dado" << endl;
 
-                if (INICIA_PARTIDA == nombre_j1) {
+               if (INICIA_PARTIDA == nombre_j1) {
                     dado_j1 = lanzar_dado();
                     cout << "El jugador " << nombre_j1 << " saco un " << dado_j1 << endl;
-                    J1_O_J2 = nombre_j1;
                     lanzo_dado=nombre_j1;
                     dado_j1 = 1;
                     if(dado_j1 == 1){
-                        OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
+                        //OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                        //OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                        //OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
+                        //OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
                         //OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
-                          //OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2,cartas_bloqueadas_j1, cartas_bloqueadas_j2);
-                        //OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, J1_O_J2, nombre_j1, nombre_j2);
+                        
                     }
                 } else {
                     dado_j2 = lanzar_dado();
                     cout << "El jugador " << nombre_j2 << " sacó un " << dado_j2 << endl;
-                    J1_O_J2 = nombre_j2;
                     lanzo_dado=nombre_j2;
                     dado_j2 = 1;
                     if(dado_j2 == 1){
-                        OPCION_DADO_3(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2);
+                        //OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                        //OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                        //OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
+                        //OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
                         //OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
-                        //OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2,cartas_bloqueadas_j1, cartas_bloqueadas_j2);
-                        //OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, J1_O_J2, nombre_j1, nombre_j2);
+            
                     }
                 }
 
@@ -352,7 +355,90 @@ void OPCION_DADO_1(string mazo[][4], string numero_cartas[5], string tipo_palo[4
     cout << "------------------------------------------" << endl;
     }
 }
+///FUNCION CARA DE DADO 2
+void OPCION_DADO_2(string (&mazo)[][4], string numero_cartas[], string tipo_palo[], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2){
+    int CARTA , NEW_NUM , NEW_PALO;
+    bool CORTE_CAMBIO_CARTA = false;
+    string CARTA_INTERCAMBIADA_NUMERO, CARTA_INTERCAMBIADA_PALO, CARTA_ACTUAL, PALO_ACTUAL;
 
+    cout << endl;
+    cout << "OPCION #1: EL JUGADOR " << lanzo_dado << " PODRA INTERCAMBIAR UNA CARTA DEL CORRAL CONTRARIO POR UNA DEL MAZO, SUERTE!!" << endl;
+    cout << "===================================================================================================" << endl;
+
+    if(lanzo_dado == nombre_j1){
+    cout << "   SELECCION DE CARTAS PARA INTERCAMBIO" << endl;
+    cout << "------------------------------------------" << endl;
+    cout << "#1 : " << corral_j2 [0][0] << " " << corral_j2 [0][1] << endl;
+    cout << "#2 : " << corral_j2 [1][0] << " " << corral_j2 [1][1] << endl;
+    cout << "#3 : " << corral_j2 [2][0] << " " << corral_j2 [2][1] << endl; ///MAZO ANTES DE CAMBIO DE CARTA
+    cout << "#4 : " << corral_j2 [3][0] << " " << corral_j2 [3][1] << endl;
+    cout << "#5 : " << corral_j2 [4][0] << " " << corral_j2 [4][1] << endl;
+    cout << "------------------------------------------" << endl;
+    cin >> CARTA;
+    CARTA_INTERCAMBIADA_NUMERO = corral_j2[CARTA - 1][0];
+    CARTA_INTERCAMBIADA_PALO = corral_j2[CARTA - 1][1];
+
+    while(CORTE_CAMBIO_CARTA != true){
+        NEW_NUM = rand() % 5;
+        NEW_PALO = rand() % 4;
+        if(cartas_usando [NEW_NUM][NEW_PALO] == false){
+            corral_j2 [CARTA - 1][0] = numero_cartas[NEW_NUM - 1];
+            corral_j2 [CARTA - 1][1] = tipo_palo[NEW_PALO - 1];
+            CARTA_ACTUAL = numero_cartas[NEW_NUM - 1]; 
+            PALO_ACTUAL = tipo_palo [NEW_PALO - 1];
+            CORTE_CAMBIO_CARTA = true;
+        }
+    }
+    cout << "la carta intercambiada fue " << CARTA_INTERCAMBIADA_NUMERO << " de " << CARTA_INTERCAMBIADA_PALO;
+    cout << ", que fue cambiada por " << CARTA_ACTUAL << " de " << PALO_ACTUAL << endl;
+    cout << endl;
+    cout << "   MAZO ACTUAL DEL JUGADOR CONTRARIO" << lanzo_dado << endl;
+    cout << "-----------------------------------------" << endl;
+    cout << "#1 : " << corral_j1 [0][0] << " " << corral_j1 [0][1] << endl;
+    cout << "#2 : " << corral_j1 [1][0] << " " << corral_j1 [1][1] << endl; 
+    cout << "#3 : " << corral_j1 [2][0] << " " << corral_j1 [2][1] << endl;
+    cout << "#4 : " << corral_j1 [3][0] << " " << corral_j1 [3][1] << endl;
+    cout << "#5 : " << corral_j1 [4][0] << " " << corral_j1 [4][1] << endl;
+    cout << "------------------------------------------" << endl;
+////////////HASTA ACA LA OPCION J1, AHORA EMPIEZA LA OPCION DEL J2/////////////////////////////
+    }else if(lanzo_dado == nombre_j2){
+    cout << "   SELECCION DE CARTAS PARA INTERCAMBIO" << endl;
+    cout << "------------------------------------------" << endl;
+    cout << "#1 : " << corral_j1 [0][0] << " " << corral_j1 [0][1] << endl;
+    cout << "#2 : " << corral_j1 [1][0] << " " << corral_j1 [1][1] << endl;
+    cout << "#3 : " << corral_j1 [2][0] << " " << corral_j1 [2][1] << endl; //
+    cout << "#4 : " << corral_j1 [3][0] << " " << corral_j1 [3][1] << endl;
+    cout << "#5 : " << corral_j1 [4][0] << " " << corral_j1 [4][1] << endl;
+    cout << "------------------------------------------" << endl;
+    cin >> CARTA;
+    CARTA_INTERCAMBIADA_NUMERO = corral_j1[CARTA - 1][0];
+    CARTA_INTERCAMBIADA_PALO = corral_j1[CARTA - 1][1];
+
+
+    while(CORTE_CAMBIO_CARTA != true){
+        NEW_NUM = rand() % 5;
+        NEW_PALO = rand() % 4;
+        if(cartas_usando [NEW_NUM][NEW_PALO] == false){
+            corral_j1 [CARTA - 1][0] = numero_cartas[NEW_NUM - 1];
+            corral_j1 [CARTA - 1][1] = tipo_palo[NEW_PALO - 1];
+            CARTA_ACTUAL = numero_cartas[NEW_NUM - 1];
+            PALO_ACTUAL = tipo_palo [NEW_PALO - 1];
+            CORTE_CAMBIO_CARTA = true;
+        }
+    }
+    cout << "la carta intercambiada fue " << CARTA_INTERCAMBIADA_NUMERO << " de " << CARTA_INTERCAMBIADA_PALO;
+    cout << ", que fue cambiada por " << CARTA_ACTUAL << " de " << PALO_ACTUAL << endl;
+    cout << endl;
+    cout << "   MAZO ACTUAL DEL JUGADOR CONTRARIO" << lanzo_dado << endl;
+    cout << "------------------------------------------" << endl;
+    cout << "#1 : " << corral_j1 [0][0] << " " << corral_j1 [0][1] << endl;
+    cout << "#2 : " << corral_j1 [1][0] << " " << corral_j1 [1][1] << endl;
+    cout << "#3 : " << corral_j1 [2][0] << " " << corral_j1 [2][1] << endl; 
+    cout << "#4 : " << corral_j1 [3][0] << " " << corral_j1 [3][1] << endl;
+    cout << "#5 : " << corral_j1 [4][0] << " " << corral_j1 [4][1] << endl;
+    cout << "------------------------------------------" << endl;
+    }
+}
 
 // FUNCION PARA LA CARA 3 DEL dado
 
