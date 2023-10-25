@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -20,7 +19,7 @@ int lanzar_dado(const int caras_dado = 6);
 void OPCION_DADO_1(string (&mazo)[5][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2);
 void OPCION_DADO_2(string (&mazo)[5][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2);
 void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2);
-void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2);
+void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2 , bool (&cartas_bloqueadas_j1)[5][2], bool (&cartas_bloqueadas_j2) [ 5][2] );
 void OPcion_DADO_5(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2, bool (&cartas_bloqueadas_j1)[5][2], bool (&cartas_bloqueadas_j2)[5][2], int cantidad_repartida);
 void OPCION_DADO_6(string &lanzo_dado,string nombre_j1, string nombre_j2, string (&mazo)[5][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4],bool (&cartas_bloqueadas_j1)[5][2], bool (&cartas_bloqueadas_j2)[5][2], int cantidad_repartida);
 int main()
@@ -87,7 +86,7 @@ int main()
                         OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
                         break;
                         case 4:
-                        OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+                        OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2 ,cartas_bloqueadas_j1, cartas_bloqueadas_j2 );
                         break;
                         case 5:
                         OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
@@ -115,7 +114,7 @@ int main()
                         OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
                         break;
                         case 4:
-                        OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+                        OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2 ,cartas_bloqueadas_j1, cartas_bloqueadas_j2 );
                         break;
                         case 5:
                         OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
@@ -150,7 +149,7 @@ int main()
                             OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
                             break;
                             case 4:
-                            OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+                            OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2 ,cartas_bloqueadas_j1, cartas_bloqueadas_j2 );
                             break;
                             case 5:
                             OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
@@ -183,7 +182,7 @@ int main()
                                 OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
                                 break;
                                 case 4:
-                                OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+                                OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2 ,cartas_bloqueadas_j1, cartas_bloqueadas_j2 );
                                 break;
                                 case 5:
                                 OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
@@ -715,7 +714,7 @@ void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
 
 
 //funcion para la cara 4 del dado
-void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2)
+void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2, bool (&cartas_bloqueadas_j1)[5][2], bool (&cartas_bloqueadas_j2)[5][2])
 {
 
     int CARTA; // la carta que se eligio para intercambiar
@@ -743,6 +742,15 @@ void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
 
         CARTA_ELEGIDA[0] = NUMERO_CARTA;
         CARTA_ELEGIDA[1] = NUMERO_PALO; // aca se guarda la carta elegida para intercambio
+
+        if ((cartas_bloqueadas_j1[CARTA - 1][0] == true && cartas_bloqueadas_j1[CARTA - 1][1]== true)) //pregunto si la carta esta bloqueada
+        {
+            cartas_bloqueadas_j1[CARTA-1][0]=true;
+            cartas_bloqueadas_j1[CARTA-1][1]=true;
+
+            cartas_bloqueadas_j1[CARTA_INTERCAMBIO-1][0]=true;//hago el cambio de posicion en el corral de la carta bloqueada
+            cartas_bloqueadas_j1[CARTA_INTERCAMBIO-1][1]=true;
+        }
 
         cout << "  SELECCIONE POR QUE CARTA DESEA INTERCAMBIARLA  " << endl;
         cout << "------------------------------------------" << endl;
@@ -789,6 +797,15 @@ void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
 
         CARTA_ELEGIDA[0] = NUMERO_CARTA;
         CARTA_ELEGIDA[1] = NUMERO_PALO; // aca se guarda la carta elegida para intercambio
+
+        if ((cartas_bloqueadas_j1[CARTA - 1][0] == true && cartas_bloqueadas_j1[CARTA - 1][1]== true)) //pregunto si la carta esta bloqueada
+        {
+            cartas_bloqueadas_j1[CARTA-1][0]=true;
+            cartas_bloqueadas_j1[CARTA-1][1]=true;
+
+            cartas_bloqueadas_j1[CARTA_INTERCAMBIO-1][0]=true;//hago el cambio de posicion en el corral de la carta bloqueada
+            cartas_bloqueadas_j1[CARTA_INTERCAMBIO-1][1]=true;
+        }
 
         cout << "  SELECCIONE POR QUE CARTA DESEA INTERCAMBIARLA  " << endl;
         cout << "------------------------------------------" << endl;
@@ -921,7 +938,7 @@ void OPCION_DADO_6(string &lanzo_dado,string nombre_j1, string nombre_j2, string
                 OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
                 break;
                 case 4:
-                OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+               OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2 ,cartas_bloqueadas_j1, cartas_bloqueadas_j2 );
                 break;
                 case 5:
                 OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
