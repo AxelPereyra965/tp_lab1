@@ -13,6 +13,7 @@ string palo_aleatorio(string tipo_palo[4]);
 void repartir_cartas_j1(bool (&cartas_usando)[5][4], string nombre_j1, string corral_j1[5][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[]);
 void repartir_cartas_j2(bool (&cartas_usando)[5][4], string nombre_j2, string corral_j2[5][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[]);
 void empieza_primero(string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &nombre_j1, string &nombre_j2, string &INICIA_PARTIDA, string &carta_repetida);
+void verificar_carta(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &lanzo_dado, string nombre_j1, string nombre_j2);
 int lanzar_dado(const int caras_dado = 6);
 //FUNCIONES DE OPCIONES DEL DADO
 void OPCION_DADO_1(string (&mazo)[][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2);
@@ -27,13 +28,15 @@ int main()
     const int caras_dado = 6;
 
     int opcion;
+    int RONDAS = 1;
     int dado_j1, dado_j2;
     string nombre_j1, nombre_j2, INICIA_PARTIDA, carta_repetida;
-    string numero_cartas[5] = {"A", "K", "Q", "J", "10"};
+    string numero_cartas[5] = {"10", "J", "Q", "K", "A"};
     string tipo_palo[4] = {"trebol", "corazon", "pica", "diamante"};
     string corral_j1[cantidad_repartida][2], corral_j2[cantidad_repartida][2];
     string mazo [5][4];
     string lanzo_dado; //nos sirve para saber a quien le toca lanzar
+    bool B_CORTE_JUEGO = false; ///sirve para cortar cuando un jugador haya ganado
     bool cartas_bloqueadas_j1[cantidad_repartida][2]={false};
     bool cartas_bloqueadas_j2[cantidad_repartida][2]={false};//nos sirven para saber que carta esta bloqueada (cara 5 del dado)
     bool cartas_usando [5][4]={false}; //esta matriz nos sirve para no repetir carta
@@ -67,33 +70,127 @@ int main()
 
                 if (INICIA_PARTIDA == nombre_j1) {
                     dado_j1 = lanzar_dado();
+                    cout << "                   RONDA #" << RONDAS << endl;
+                    cout << "------------------------------------------------------------------------" << endl;
                     cout << "El jugador " << nombre_j1 << " saco un " << dado_j1 << endl;
                     lanzo_dado=nombre_j1;
-                    dado_j1 = 1;
-                    if(dado_j1 == 1){
-                        //OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
-                        //OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
-                        //OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
-                        //OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
-                        //OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
+                    switch(dado_j1){
+                        case 1:
+                        OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                        break;
+                        case 2:
+                        OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                        break;
+                        case 3:
+                        OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
+                        break;
+                        case 4:
+                        OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+                        break;
+                        case 5:
+                        OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
+                        break;
+                        case 6:
+                        cout << "ENTRO" << endl;
                         OPCION_DADO_6(lanzo_dado, nombre_j1, nombre_j2, mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
-                    }
-                } else {
+                        break;
+                         }
+                     }else{
                     dado_j2 = lanzar_dado();
-                    cout << "El jugador " << nombre_j2 << " sacó un " << dado_j2 << endl;
+                    cout << "                   RONDA #" << RONDAS << endl;
+                    cout << "------------------------------------------------------------------------" << endl;
+                    cout << "El jugador " << nombre_j2 << " saco un " << dado_j2 << endl;
                     lanzo_dado=nombre_j2;
-                    dado_j2 = 1;
-                    if(dado_j2 == 1){
-                        //OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
-                        //OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
-                        //OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
-                        //OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
-                        //OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
+                    switch(dado_j2){
+                        case 1:
+                        OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                        break;
+                        case 2:
+                        OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                        break;
+                        case 3:
+                        OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
+                        break;
+                        case 4:
+                        OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+                        break;
+                        case 5:
+                        OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
+                        break;
+                        case 6:
+                        cout << "ENTRO" << endl;
                         OPCION_DADO_6(lanzo_dado, nombre_j1, nombre_j2, mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
-                    }
-                }
+                        break;
+                         }
 
-                break;
+                     }
+                     while(B_CORTE_JUEGO != true){
+                        RONDAS ++;
+                        if(lanzo_dado == nombre_j1){
+                        dado_j2 = lanzar_dado();
+                        cout << "                   RONDA #" << RONDAS << endl;
+                        cout << "------------------------------------------------------------------------" << endl;
+                        cout << "Es el turno del jugador " << lanzo_dado << ", procedera a tirar el dado" << endl;
+                        cout << "------------------------------------------------------------------------" << endl;
+                        cout << "El jugador " << nombre_j2 << " saco un " << dado_j2 << endl;
+                        cout << "------------------------------------------------------------------------" << endl;
+                        lanzo_dado=nombre_j2;
+                        switch(dado_j2){
+                            case 1:
+                            OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                            break;
+                            case 2:
+                            OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                            break;
+                            case 3:
+                            OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
+                            break;
+                            case 4:
+                            OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+                            break;
+                            case 5:
+                            OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
+                            break;
+                            case 6:
+                            cout << "ENTRO" << endl;
+                            OPCION_DADO_6(lanzo_dado, nombre_j1, nombre_j2, mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
+                            break;
+                             }
+                             verificar_carta(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2); ///VERIFICAMOS SI EL CORRAL ESTA ORDENADO TAL COMO SE REQUIERE O NO
+
+                            }else if(lanzo_dado == nombre_j2){
+                            dado_j1 = lanzar_dado();
+                            cout << "                   RONDA #" << RONDAS << endl;
+                            cout << "------------------------------------------------------------------------" << endl;
+                            cout << "Es el turno del jugador " << lanzo_dado << ", procedera a tirar el dado" << endl;
+                            cout << "------------------------------------------------------------------------" << endl;
+                            cout << "El jugador " << nombre_j1 << " saco un " << dado_j1 << endl;
+                            cout << "------------------------------------------------------------------------" << endl;
+                            lanzo_dado=nombre_j1;
+                            switch(dado_j1){
+                                case 1:
+                                OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                                break;
+                                case 2:
+                                OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                                break;
+                                case 3:
+                                OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2);
+                                break;
+                                case 4:
+                                OPCION_DADO_4(corral_j1, corral_j2,lanzo_dado, nombre_j1, nombre_j2);
+                                break;
+                                case 5:
+                                OPcion_DADO_5(corral_j1,corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
+                                break;
+                                case 6:
+                                cout << "ENTRO" << endl;
+                                OPCION_DADO_6(lanzo_dado, nombre_j1, nombre_j2, mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
+                                break;
+                                }
+                                verificar_carta(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2);
+                            }
+                        }
             case 2:
 
                 break;
@@ -104,7 +201,7 @@ int main()
                 cout << "------------------------------------------------------------------------" << endl;
                 cout << "      OPCION INCORRECTA, ELIJA NUEVAMENTE ENTRE ESAS TRES OPCIONES" << endl;
                 cout << "------------------------------------------------------------------------" << endl;
-        }
+     }
 
     } while (opcion != 0);
 
@@ -260,6 +357,46 @@ int lanzar_dado(const int caras_dado)
     return rand() % caras_dado + 1;
 }
 
+void verificar_carta(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &lanzo_dado, string nombre_j1, string nombre_j2){
+    int CONTADOR = 0;
+    
+    if(lanzo_dado == nombre_j1){
+        for(int x = 0 ; x < 5 ; x ++){
+            if(corral_j1[x][0] == numero_cartas[x]){
+                CONTADOR ++;
+            }
+        }
+        if(CONTADOR == 5){
+            cout << nombre_j1 << " LOGRO ORDENAR EL MAZO EN ESCALERA, ES EL GANADOR!!" << endl;
+            cout << "------------------------------------------" << endl;
+            cout << "#1 : " << corral_j1 [0][0] << " " << corral_j1 [0][1] << endl;
+            cout << "#2 : " << corral_j1 [1][0] << " " << corral_j1 [1][1] << endl;
+            cout << "#3 : " << corral_j1 [2][0] << " " << corral_j1 [2][1] << endl;
+            cout << "#4 : " << corral_j1 [3][0] << " " << corral_j1 [3][1] << endl;
+            cout << "#5 : " << corral_j1 [4][0] << " " << corral_j1 [4][1] << endl;
+            cout << "------------------------------------------" << endl;
+            B_CORTE_JUEGO = true;
+        }
+    }else if(lanzo_dado == nombre_j2){
+        for(int x = 0 ; x < 5 ; x ++){
+            if(corral_j2[x][0] == numero_cartas[x]){
+                CONTADOR ++;
+            }
+        }
+        if(CONTADOR == 5){
+            cout << nombre_j2 << " LOGRO ORDENAR EL MAZO EN ESCALERA, ES EL GANADOR!!" << endl;
+            cout << "------------------------------------------" << endl;
+            cout << "#1 : " << corral_j2 [0][0] << " " << corral_j2 [0][1] << endl;
+            cout << "#2 : " << corral_j2 [1][0] << " " << corral_j2 [1][1] << endl;
+            cout << "#3 : " << corral_j2 [2][0] << " " << corral_j2 [2][1] << endl;
+            cout << "#4 : " << corral_j2 [3][0] << " " << corral_j2 [3][1] << endl;
+            cout << "#5 : " << corral_j2 [4][0] << " " << corral_j2 [4][1] << endl;
+            cout << "------------------------------------------" << endl;
+            B_CORTE_JUEGO = true;
+        }
+    }
+}
+
 void OPCION_DADO_1(string (&mazo)[][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2){
     int CARTA = 0, NEW_NUM = 0, NEW_PALO;
     bool CORTE_CAMBIO_CARTA = false;
@@ -365,7 +502,7 @@ void OPCION_DADO_2(string (&mazo)[][4], string numero_cartas[], string tipo_palo
     string CARTA_INTERCAMBIADA_NUMERO, CARTA_INTERCAMBIADA_PALO, CARTA_ACTUAL, PALO_ACTUAL;
 
     cout << endl;
-    cout << "OPCION #1: EL JUGADOR " << lanzo_dado << " PODRA INTERCAMBIAR UNA CARTA DEL CORRAL CONTRARIO POR UNA DEL MAZO, SUERTE!!" << endl;
+    cout << "OPCION #2: EL JUGADOR " << lanzo_dado << " PODRA INTERCAMBIAR UNA CARTA DEL CORRAL CONTRARIO POR UNA DEL MAZO, SUERTE!!" << endl;
     cout << "===================================================================================================" << endl;
 
     if(lanzo_dado == nombre_j1){
