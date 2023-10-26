@@ -2,6 +2,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
@@ -44,13 +45,13 @@ int main()
     srand(time(NULL));
 
     do {
-        cout << "CLUTCH" << endl;
-        cout << "--------------" << endl;
-        cout << "1 - JUGAR" << endl;
-        cout << "2 - ESTADISTICAS" << endl;
-        cout << "3 - CREDITOS" << endl;
-        cout << "----------------" << endl;
-        cout << "0 - SALIR" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "CLUTCH   "<< left << "    |" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "-------------------"<< left << "|" << endl;
+        cout << right << setw(49)<< "|"<< setw(11)<< "1 - JUGAR"<< left << "        |" << endl;
+        cout << right << setw(45) << "MENU PRINCIPAL"<< right << setw(4)<< "|"<< setw(18)<< "2 - ESTADISTICAS"<< left << " |" << endl;
+        cout << right << setw(49)<< "|"<< setw(14)<< "3 - CREDITOS"<< left << "     |" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "-------------------"<< left << "|" << endl;
+        cout << right << setw(49)<< "|"<< setw(11)<< "0 - SALIR"<< left << "        |" << endl;
         cin >> opcion;
 
         switch (opcion) {
