@@ -201,8 +201,34 @@ int main()
                         }
             case 2:
 
-                break;
+                int terminar;
+
+                cout<<"GLUTCH"<<endl;
+                cout<<"------------------------------------------------------------------------"<<endl;
+                cout<<endl;
+                cout<<"HITO                                                     JUGADOR GANADOR"<<endl;
+                cout<<"------------------------------------------------------------------------"<<endl;
+                cout<<"GANAR LA PARTIDA                                                 +15 PDV"<<endl;
+                cout<<"ROBO LA ULTIMA CARTA DEL JUGADOR RIVAL                            +0 PDV"<<endl;
+                cout<<"CARMAS MAL UBICADAS DEL JUGADOR RIVAL X 4                        +20 PDV"<<endl;
+                cout<<"SIN PASAR DE TURNO                                               +10 PDV"<<endl;
+                cout<<"SIN HABER SUFRIDO UN ROBO DEL RIVAL                               +0 PDV"<<endl;
+                cout<<"------------------------------------------------------------------------"<<endl;
+                cout<<"TOTAL                                                LOS PUNTOS QUE SACO"<<endl;
+                cout<<endl;
+                cout<<"GANADOR: NOMBRE DEL GANADOR CON PUNTOS DE VICTORIA                      "<<endl;
+                cout<<endl;
+
+                while(terminar != 0)
+                {
+                    cout<<"PRESIONAR 0 PARA CONTINUAR"<<endl;
+                    cin>>terminar;
+                }
+
+            break;
+
             case 3:
+
 
                 break;
             default:
@@ -411,7 +437,7 @@ bool comparar_cartas(string (&corral_j1)[5][2], string (&corral_j2)[5][2])
                     return false;
                 }
             }
-} 
+}
 
 void OPCION_DADO_1(string (&mazo)[5][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2){
     int CARTA = 0, NEW_NUM = 0, NEW_PALO;
@@ -447,7 +473,7 @@ void OPCION_DADO_1(string (&mazo)[5][4], string numero_cartas[5], string tipo_pa
     while(CORTE_CAMBIO_CARTA != true){
         NEW_NUM = rand() % 5;
         NEW_PALO = rand() % 4;
-  
+
         if(cartas_usando [NEW_NUM][NEW_PALO] == false){
             corral_j1 [CARTA - 1][0] = numero_cartas[NEW_NUM];
             corral_j1 [CARTA - 1][1] = tipo_palo[NEW_PALO];
@@ -537,7 +563,7 @@ void OPCION_DADO_2(string (&mazo)[5][4], string numero_cartas[], string tipo_pal
     bool CORTE_CAMBIO_CARTA = false, BANDERA_FUNCION_COMPARAR = false;
     string CARTA_INTERCAMBIADA_NUMERO, CARTA_INTERCAMBIADA_PALO, CARTA_ACTUAL, PALO_ACTUAL;
 
-    
+
 
     if(lanzo_dado == nombre_j1){
     cout << endl;
@@ -553,7 +579,7 @@ void OPCION_DADO_2(string (&mazo)[5][4], string numero_cartas[], string tipo_pal
     cout << "#5 : " << corral_j2 [4][0] << " " << corral_j2 [4][1] << endl;
     cout << "------------------------------------------" << endl;
     cin >> CARTA;
-    
+
     CARTA_INTERCAMBIADA_NUMERO = corral_j2[CARTA - 1][0];
     CARTA_INTERCAMBIADA_PALO = corral_j2[CARTA - 1][1];
 
