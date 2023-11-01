@@ -12,7 +12,7 @@ void elegir_nombres(string &nombre_j1, string&nombre_j2);
 void repartir_cartas_j1(bool (&cartas_usando)[5][4], string nombre_j1, string corral_j1[5][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[], bool cartas_usando_j1 [5][2]);
 void repartir_cartas_j2(bool (&cartas_usando)[5][4], string nombre_j2, string corral_j2[5][2], const int cantidad_repartida, string numero_cartas[], string tipo_palo[], bool cartas_usando_j2 [5][2]);
 void empieza_primero(string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &nombre_j1, string &nombre_j2, string &INICIA_PARTIDA, string &carta_repetida);
-void verificar_carta(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &lanzo_dado, string nombre_j1, string nombre_j2);
+void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &lanzo_dado, string nombre_j1, string nombre_j2, string &nombre_ganador);
 bool comparar_cartas(string (&corral_j1)[5][2], string (&corral_j2)[5][2]);
 int lanzar_dado(const int caras_dado = 6);
 //FUNCIONES DE OPCIONES DEL DADO
@@ -36,13 +36,13 @@ int main()
     string corral_j1[cantidad_repartida][2], corral_j2[cantidad_repartida][2];
     string mazo [5][4];
     string lanzo_dado; //nos sirve para saber a quien le toca lanzar
+    string nombre_ganador; // aca se almacena el nombre del jugador que gane la partida
     bool B_CORTE_JUEGO = false; ///sirve para cortar cuando un jugador haya ganado
     bool cartas_bloqueadas_j1[cantidad_repartida][2]={false};
     bool cartas_bloqueadas_j2[cantidad_repartida][2]={false};//nos sirven para saber que carta esta bloqueada (cara 5 del dado)
     bool cartas_usando [5][4]={false}; //esta matriz nos sirve para no repetir carta
     bool cartas_usando_j1 [cantidad_repartida][2] = {false};
     bool cartas_usando_j2 [cantidad_repartida][2] = {false};
-
 
     srand(time(NULL));
 
@@ -98,7 +98,7 @@ int main()
                         OPCION_DADO_6(lanzo_dado, nombre_j1, nombre_j2, mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
                         break;
                          }
-                        verificar_carta(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2);
+                        verificar_ganador(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2, nombre_ganador);
                         cout << "ya jugo su mano " << nombre_j1 << ", ahora sigue " << nombre_j2 << endl;
                          lanzo_dado=nombre_j2;
                      }else{
@@ -128,7 +128,7 @@ int main()
                         OPCION_DADO_6(lanzo_dado, nombre_j1, nombre_j2, mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
                         break;
                          }
-                        verificar_carta(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2);
+                        verificar_ganador(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2, nombre_ganador);
                         cout << "ya jugo su mano " << nombre_j2 << ", ahora sigue " << nombre_j1 << endl;
                         lanzo_dado=nombre_j1;
                      }
@@ -163,7 +163,7 @@ int main()
                             OPCION_DADO_6(lanzo_dado, nombre_j1, nombre_j2, mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
                             break;
                              }
-                             verificar_carta(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2); ///VERIFICAMOS SI EL CORRAL ESTA ORDENADO TAL COMO SE REQUIERE O NO
+                             verificar_ganador(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2, nombre_ganador); ///VERIFICAMOS SI EL CORRAL ESTA ORDENADO TAL COMO SE REQUIERE O NO
                              cout << "ya jugo su mano " << nombre_j1 << ", ahora sigue " << nombre_j2 << endl;
                              lanzo_dado=nombre_j2;
                             }else if(lanzo_dado == nombre_j2){
@@ -195,7 +195,7 @@ int main()
                                 OPCION_DADO_6(lanzo_dado, nombre_j1, nombre_j2, mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, cartas_bloqueadas_j1, cartas_bloqueadas_j2, cantidad_repartida);
                                 break;
                                 }
-                                verificar_carta(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2);
+                                verificar_ganador(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2, nombre_ganador);
                                 cout << "ya jugo su mano " << nombre_j2 << ", ahora sigue " << nombre_j1 << endl;
                                 lanzo_dado=nombre_j1;
                             }
@@ -204,10 +204,10 @@ int main()
 
                 int terminar;
 
-                cout<<"GLUTCH"<<endl;
+                cout<<"CLUTCH"<<endl;
                 cout<<"------------------------------------------------------------------------"<<endl;
                 cout<<endl;
-                cout<<"HITO                                                     JUGADOR GANADOR"<<endl;
+                cout<<"HITO                                                 "<<"JUGADOR "<<nombre_ganador<<endl;
                 cout<<"------------------------------------------------------------------------"<<endl;
                 cout<<"GANAR LA PARTIDA                                                 +15 PDV"<<endl;
                 cout<<"ROBO LA ULTIMA CARTA DEL JUGADOR RIVAL                            +0 PDV"<<endl;
@@ -217,7 +217,7 @@ int main()
                 cout<<"------------------------------------------------------------------------"<<endl;
                 cout<<"TOTAL                                                LOS PUNTOS QUE SACO"<<endl;
                 cout<<endl;
-                cout<<"GANADOR: NOMBRE DEL GANADOR CON PUNTOS DE VICTORIA                      "<<endl;
+                cout<<"GANADOR: "<<nombre_ganador<<endl;
                 cout<<endl;
 
                 while(terminar != 0)
@@ -386,7 +386,7 @@ int lanzar_dado(const int caras_dado)
 }
 
 // Funcion para verificar si existe el jugador ganador en cada vuelta
-void verificar_carta(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &lanzo_dado, string nombre_j1, string nombre_j2){
+void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &lanzo_dado, string nombre_j1, string nombre_j2, string &nombre_ganador){
     int CONTADOR = 0;
 
     if(lanzo_dado == nombre_j1){
@@ -404,6 +404,7 @@ void verificar_carta(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral_j
             cout << "#4 : " << corral_j1 [3][0] << " " << corral_j1 [3][1] << endl;
             cout << "#5 : " << corral_j1 [4][0] << " " << corral_j1 [4][1] << endl;
             cout << "------------------------------------------" << endl;
+            nombre_ganador = nombre_j1;
             B_CORTE_JUEGO = true;
         }
     }else if(lanzo_dado == nombre_j2){
@@ -421,6 +422,7 @@ void verificar_carta(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral_j
             cout << "#4 : " << corral_j2 [3][0] << " " << corral_j2 [3][1] << endl;
             cout << "#5 : " << corral_j2 [4][0] << " " << corral_j2 [4][1] << endl;
             cout << "------------------------------------------" << endl;
+            nombre_ganador = nombre_j2;
             B_CORTE_JUEGO = true;
         }
     }
