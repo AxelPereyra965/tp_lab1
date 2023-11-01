@@ -40,8 +40,7 @@ int main()
     bool cartas_bloqueadas_j1[cantidad_repartida][2]={false};
     bool cartas_bloqueadas_j2[cantidad_repartida][2]={false};//nos sirven para saber que carta esta bloqueada (cara 5 del dado)
     bool cartas_usando [5][4]={false}; //esta matriz nos sirve para no repetir carta
-    bool cartas_usando_j1 [cantidad_repartida][2] = {false};
-    bool cartas_usando_j2 [cantidad_repartida][2] = {false};
+
 
     srand(time(NULL));
 
