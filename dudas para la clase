@@ -1,0 +1,57 @@
+#include <iostream>
+#include <iomanip>
+ 
+using namespace std;
+ 
+
+ 
+int main()
+{
+        /*cout << right << setw(49)<< "|"<< setw(15)<< "CLUTCH   "<< left << "    |" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "-------------------"<< left << "|" << endl;
+        cout << right << setw(49)<< "|"<< setw(11)<< "1 - JUGAR"<< left << "        |" << endl;
+        cout << right << setw(45) << "MENU PRINCIPAL"<< right << setw(4)<< "|"<< setw(18)<< "2 - ESTADISTICAS"<< left << " |" << endl;
+        cout << right << setw(49)<< "|"<< setw(14)<< "3 - CREDITOS"<< left << "     |" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "-------------------"<< left << "|" << endl;
+        cout << right << setw(49)<< "|"<< setw(11)<< "0 - SALIR"<< left << "        |" << endl;*/
+
+        ///<< left << setw(-12) << "|" <<
+        /* 
+        cout << right << setw(49)<< "|"<< setw(15)<< "CLUTCH"<< left <<setw(49)<< "|" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "----------------"<< left <<setw(49)<< "|" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "1 - JUGAR"<< left <<setw(49)<< "|" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "2 - ESTADISTICAS"<< left <<setw(49)<< "|" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "3 - CREDITOS"<< left <<setw(49)<< "|" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "----------------"<< left <<setw(49)<< "|" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "0 - SALIR"<< left <<setw(49)<< "|" << endl;
+
+        cout << right << setw(49)<< "|"<< setw(15)<< "CLUTCH   "<< left << "    |" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "-------------------"<< left << "|" << endl;
+        cout << right << setw(49)<< "|"<< setw(11)<< "1 - JUGAR"<< left << "        |" << endl;
+        cout << right << setw(45) << "MENU PRINCIPAL"<< right << setw(4)<< "|"<< setw(18)<< "2 - ESTADISTICAS"<< left << " |" << endl;
+        cout << right << setw(49)<< "|"<< setw(14)<< "3 - CREDITOS"<< left << "     |" << endl;
+        cout << right << setw(49)<< "|"<< setw(15)<< "-------------------"<< left << "|" << endl;
+        cout << right << setw(49)<< "|"<< setw(11)<< "0 - SALIR"<< left << "        |" << endl;
+        */
+           
+            cout << "------------------------------------------" << endl;
+             cout << "|" << "             MAZO DE PEPE                  " << endl <<"|"<< endl;
+            cout << "|"<< setw(15) << "A" << " " << "CORAZON" << setw(18)<< "|" << left<< endl;
+            cout<<setw(15) << "|"<<setw(1) << "10" << " " << setw(23) << "DIAMANTE" << "|" << left<< endl;
+            cout <<setw(15)<< "|"<<setw(1) << "K" << " " << setw(23) << "PICA" << "|" << left<< endl;
+            cout << "|"<< setw(15) << "Q" << " " << "TREBOL" << setw(35)<< "|" << left<< endl;
+            cout << "|"<< setw(15) <<  "J" << " " << "PICA" << setw(35)<< "|" << left<< endl;
+            cout << "|"<< endl;
+            cout << "|"<< endl;
+
+
+           cout << "|" << "             MAZO DE MENGUITO                  " << endl <<"|"<< endl;
+            cout << "|"<< setw(15) << "A" << " " << "CORAZON" << endl;
+            cout << "|"<< setw(15) << "10" << " " << "DIAMANTE" << endl;
+            cout << "|"<< setw(15) << "K" << " " << "PICA" << endl;
+            cout << "|"<< setw(15) << "Q" << " " << "TREBOL" << endl;
+            cout << "|"<< setw(15) <<  "J" << " " << "PICA" << endl;
+            cout << "------------------------------------------" << endl;
+
+
+}
