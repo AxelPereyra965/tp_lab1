@@ -239,6 +239,14 @@ int main()
 
             case 3:
 
+                cout<<"                                                JUEGO DESARROLLADO POR: "<<endl;
+                cout<<"                                                     PEREYRA AXEL"<<endl;
+                cout<<"                                                     LUCAS JUAREZ"<<endl;
+                cout<<"                                                   AYLIN PANIAGUA"<<endl;
+                cout<<"                                                            SANTI"<<endl;
+                cout<<endl;
+
+
 
                 break;
             default:
@@ -399,7 +407,7 @@ void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral
     int CONTADOR = 0;
 
     if(lanzo_dado == nombre_j1){
-        
+
         for(int x = 0 ; x < 5 ; x ++){
             if(corral_j1[x][0] == numero_cartas[x]){
                 CONTADOR ++;
@@ -420,7 +428,7 @@ void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral
         if(bandera_sin_pasar_deturnoj1==false){
             ganar_sin_pasarturno+=10;
         }
-            
+
             cout << nombre_j1 << " LOGRO ORDENAR EL MAZO EN ESCALERA, ES EL GANADOR!!" << endl;
             cout << "------------------------------------------" << endl;
             cout << "#1 : " << corral_j1 [0][0] << " " << corral_j1 [0][1] << endl;
@@ -434,8 +442,8 @@ void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral
             B_CORTE_JUEGO = true;
         }
     }else if(lanzo_dado == nombre_j2){
-        
-        
+
+
         for(int x = 0 ; x < 5 ; x ++){
             if(corral_j2[x][0] == numero_cartas[x]){
                 CONTADOR ++;
@@ -447,7 +455,7 @@ void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral
                 carta_mal_ubicada+=5;
             }
             }
-            
+
             if(lanzar_dado()==3){
             ganar_dado3+=10;
         }
@@ -457,7 +465,7 @@ void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral
         if(bandera_sin_pasar_deturnoj2==false){
             ganar_sin_pasarturno+=10;
         }
-        
+
             cout << nombre_j2 << " LOGRO ORDENAR EL MAZO EN ESCALERA, ES EL GANADOR!!" << endl;
             cout << "------------------------------------------" << endl;
             cout << "#1 : " << corral_j2 [0][0] << " " << corral_j2 [0][1] << endl;
