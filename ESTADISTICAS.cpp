@@ -15,9 +15,10 @@ void empieza_primero(string corral_j1[][2], string corral_j2[][2], string numero
 void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &lanzo_dado, string nombre_j1, string nombre_j2, string &nombre_ganador, int &ganar_partida, int &ganar_dado3, int &carta_mal_ubicada, bool &ganar_sin_sufrir_robo_j1, bool &ganar_sin_sufrir_robo_j2, int &ganar_sin_robo, bool &bandera_sin_pasar_deturnoj1, bool &bandera_sin_pasar_deturnoj2, int &ganar_sin_pasarturno);
 bool comparar_cartas(string (&corral_j1)[5][2], string (&corral_j2)[5][2]);
 int lanzar_dado(const int caras_dado = 6);
+
 //FUNCIONES DE OPCIONES DEL DADO
 void OPCION_DADO_1(string (&mazo)[5][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2);
-void OPCION_DADO_2(string (&mazo)[5][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2);
+void OPCION_DADO_2(string (&mazo)[5][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2,bool (&cartas_bloqueadas_j1)[5][2], bool (&cartas_bloqueadas_j2)[5][2]);
 void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2, bool (&cartas_bloqueadas_j1)[5][2], bool (&cartas_bloqueadas_j2)[5][2],bool &ganar_sin_sufrir_robo_j1, bool &ganar_sin_sufrir_robo_j2);
 void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2 , bool (&cartas_bloqueadas_j1)[5][2], bool (&cartas_bloqueadas_j2) [ 5][2] );
 void OPcion_DADO_5(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string &lanzo_dado, string nombre_j1, string nombre_j2, bool (&cartas_bloqueadas_j1)[5][2], bool (&cartas_bloqueadas_j2)[5][2], int cantidad_repartida);
@@ -51,7 +52,8 @@ int main()
     bool ganar_sin_sufrir_robo_j1 = false; // sirve para saber si hubo robo del jugador 1
     bool ganar_sin_sufrir_robo_j2 = false; // sirve para saber si hubo robo del jugador 2
     bool bandera_sin_pasar_deturnoj1= false; // sirve paara saber si paso de turno el jugador 1
-    bool bandera_sin_pasar_deturnoj2=false; // sirve para saber si paso de turno el jugador 2
+    bool bandera_sin_pasar_deturnoj2=false; // sirve para saber si paso de turno el jugador 24
+
 
     srand(time(NULL));
 
@@ -92,7 +94,7 @@ int main()
                         OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
                         break;
                         case 2:
-                        OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                        OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2);
                         break;
                         case 3:
                         OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2);
@@ -122,7 +124,7 @@ int main()
                         OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
                         break;
                         case 2:
-                        OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                        OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2);
                         break;
                         case 3:
                         OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2,cartas_bloqueadas_j1, cartas_bloqueadas_j2, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2);
@@ -157,7 +159,7 @@ int main()
                             OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
                             break;
                             case 2:
-                            OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                            OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2);
                             break;
                             case 3:
                             OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2);
@@ -189,7 +191,7 @@ int main()
                                 OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
                                 break;
                                 case 2:
-                                OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                                OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2);
                                 break;
                                 case 3:
                                 OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2);
@@ -238,14 +240,6 @@ int main()
             break;
 
             case 3:
-
-                cout<<"                                                JUEGO DESARROLLADO POR: "<<endl;
-                cout<<"                                                     PEREYRA AXEL"<<endl;
-                cout<<"                                                     LUCAS JUAREZ"<<endl;
-                cout<<"                                                   AYLIN PANIAGUA"<<endl;
-                cout<<"                                                            SANTI"<<endl;
-                cout<<endl;
-
 
 
                 break;
@@ -407,7 +401,7 @@ void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral
     int CONTADOR = 0;
 
     if(lanzo_dado == nombre_j1){
-
+        
         for(int x = 0 ; x < 5 ; x ++){
             if(corral_j1[x][0] == numero_cartas[x]){
                 CONTADOR ++;
@@ -428,7 +422,7 @@ void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral
         if(bandera_sin_pasar_deturnoj1==false){
             ganar_sin_pasarturno+=10;
         }
-
+            
             cout << nombre_j1 << " LOGRO ORDENAR EL MAZO EN ESCALERA, ES EL GANADOR!!" << endl;
             cout << "------------------------------------------" << endl;
             cout << "#1 : " << corral_j1 [0][0] << " " << corral_j1 [0][1] << endl;
@@ -442,8 +436,8 @@ void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral
             B_CORTE_JUEGO = true;
         }
     }else if(lanzo_dado == nombre_j2){
-
-
+        
+        
         for(int x = 0 ; x < 5 ; x ++){
             if(corral_j2[x][0] == numero_cartas[x]){
                 CONTADOR ++;
@@ -455,7 +449,7 @@ void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral
                 carta_mal_ubicada+=5;
             }
             }
-
+            
             if(lanzar_dado()==3){
             ganar_dado3+=10;
         }
@@ -465,7 +459,7 @@ void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral
         if(bandera_sin_pasar_deturnoj2==false){
             ganar_sin_pasarturno+=10;
         }
-
+        
             cout << nombre_j2 << " LOGRO ORDENAR EL MAZO EN ESCALERA, ES EL GANADOR!!" << endl;
             cout << "------------------------------------------" << endl;
             cout << "#1 : " << corral_j2 [0][0] << " " << corral_j2 [0][1] << endl;
@@ -545,6 +539,7 @@ void OPCION_DADO_1(string (&mazo)[5][4], string numero_cartas[5], string tipo_pa
         }
     }
 
+
     cout << "la carta intercambiada fue " << CARTA_INTERCAMBIADA_NUMERO << " de " << CARTA_INTERCAMBIADA_PALO;
     cout << ", que fue cambiada por " << CARTA_ACTUAL << " de " << PALO_ACTUAL << endl;
     cout << endl;
@@ -614,9 +609,9 @@ void OPCION_DADO_1(string (&mazo)[5][4], string numero_cartas[5], string tipo_pa
     }
 }
 
-void OPCION_DADO_2(string (&mazo)[5][4], string numero_cartas[], string tipo_palo[], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2){
+void OPCION_DADO_2(string (&mazo)[5][4], string numero_cartas[], string tipo_palo[], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2,bool (&cartas_bloqueadas_j2)[5][2],  bool (&cartas_bloqueadas_j1)[5][2]){
     int CARTA , NEW_NUM , NEW_PALO;
-    bool CORTE_CAMBIO_CARTA = false, BANDERA_FUNCION_COMPARAR = false;
+    bool CORTE_CAMBIO_CARTA = false, BANDERA_FUNCION_COMPARAR = false, BANDERA_BLOQUEADA= false;
     string CARTA_INTERCAMBIADA_NUMERO, CARTA_INTERCAMBIADA_PALO, CARTA_ACTUAL, PALO_ACTUAL;
 
 
@@ -635,6 +630,26 @@ void OPCION_DADO_2(string (&mazo)[5][4], string numero_cartas[], string tipo_pal
     cout << "#5 : " << corral_j2 [4][0] << " " << corral_j2 [4][1] << endl;
     cout << "------------------------------------------" << endl;
     cin >> CARTA;
+    
+        while(BANDERA_BLOQUEADA != true){
+        
+        if(cartas_bloqueadas_j2[CARTA -1][0] == true && cartas_bloqueadas_j2[CARTA - 1][1] == true  ){ //si la carta esta bloqueada
+            
+            cout<<"elegi otra carta";
+               cout << "SELECCION DEL MAZO DEL CONTRARIO (" << nombre_j2 << ")" << endl;
+            cout << "------------------------------------------" << endl;
+            cout << "#1 : " << corral_j2 [0][0] << " " << corral_j2 [0][1] << endl;
+            cout << "#2 : " << corral_j2 [1][0] << " " << corral_j2 [1][1] << endl;
+            cout << "#3 : " << corral_j2 [2][0] << " " << corral_j2 [2][1] << endl; ///MAZO ANTES DE CAMBIO DE CARTA
+            cout << "#4 : " << corral_j2 [3][0] << " " << corral_j2 [3][1] << endl;
+            cout << "#5 : " << corral_j2 [4][0] << " " << corral_j2 [4][1] << endl;
+            cout << "------------------------------------------" << endl;
+                    cin >> CARTA;
+        
+        }else{
+            BANDERA_BLOQUEADA=true;
+        }
+    }
 
     CARTA_INTERCAMBIADA_NUMERO = corral_j2[CARTA - 1][0];
     CARTA_INTERCAMBIADA_PALO = corral_j2[CARTA - 1][1];
@@ -647,6 +662,7 @@ void OPCION_DADO_2(string (&mazo)[5][4], string numero_cartas[], string tipo_pal
             }
         }
     }
+    
 
     while(CORTE_CAMBIO_CARTA != true){
         NEW_NUM = rand() % 5;
@@ -665,6 +681,7 @@ void OPCION_DADO_2(string (&mazo)[5][4], string numero_cartas[], string tipo_pal
             }
         }
     }
+
     cout << "la carta intercambiada fue " << CARTA_INTERCAMBIADA_NUMERO << " de " << CARTA_INTERCAMBIADA_PALO;
     cout << ", que fue cambiada por " << CARTA_ACTUAL << " de " << PALO_ACTUAL << endl;
     cout << endl;
@@ -1096,7 +1113,7 @@ void OPCION_DADO_6(string &lanzo_dado,string nombre_j1, string nombre_j2, string
                 OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
                 break;
                 case 2:
-                OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2);
                 break;
                 case 3:
                 OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2);
@@ -1147,7 +1164,7 @@ void OPCION_DADO_6(string &lanzo_dado,string nombre_j1, string nombre_j2, string
                 OPCION_DADO_1(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
                 break;
                 case 2:
-                OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2);
+                OPCION_DADO_2(mazo, numero_cartas, tipo_palo, corral_j1, corral_j2, cartas_usando, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2);
                 break;
                 case 3:
                 OPCION_DADO_3(corral_j1, corral_j2, lanzo_dado, nombre_j1, nombre_j2, cartas_bloqueadas_j1, cartas_bloqueadas_j2, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2);
