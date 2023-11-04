@@ -109,8 +109,10 @@ int main()
                         break;
                          }
                         verificar_ganador(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2, nombre_ganador, ganar_partida, ganar_dado3, carta_mal_ubicada, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2, ganar_sin_robo, bandera_sin_pasar_deturnoj1, bandera_sin_pasar_deturnoj2, ganar_sin_pasarturno);
-                        cout << "ya jugo su mano " << nombre_j1 << ", ahora sigue " << nombre_j2 << endl;
-                         lanzo_dado=nombre_j2;
+                        if(B_CORTE_JUEGO != true){
+                            cout << "ya jugo su mano " << nombre_j1 << ", ahora sigue " << nombre_j2 << endl;
+                            lanzo_dado=nombre_j2;
+                        }
                      }else{
                     dado_j2 = lanzar_dado();
                     cout << endl << endl;
@@ -139,8 +141,10 @@ int main()
                         break;
                          }
                         verificar_ganador(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2, nombre_ganador, ganar_partida, ganar_dado3, carta_mal_ubicada, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2, ganar_sin_robo, bandera_sin_pasar_deturnoj1, bandera_sin_pasar_deturnoj2, ganar_sin_pasarturno);
-                        cout << "ya jugo su mano " << nombre_j2 << ", ahora sigue " << nombre_j1 << endl;
-                        lanzo_dado=nombre_j1;
+                        if(B_CORTE_JUEGO != true){
+                            cout << "ya jugo su mano " << nombre_j1 << ", ahora sigue " << nombre_j2 << endl;
+                            lanzo_dado=nombre_j2;
+                        }
                      }
                      while(B_CORTE_JUEGO != true){
                         RONDAS ++;
@@ -174,8 +178,10 @@ int main()
                             break;
                              }
                              verificar_ganador(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2, nombre_ganador, ganar_partida, ganar_dado3, carta_mal_ubicada, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2, ganar_sin_robo, bandera_sin_pasar_deturnoj1, bandera_sin_pasar_deturnoj2, ganar_sin_pasarturno); ///VERIFICAMOS SI EL CORRAL ESTA ORDENADO TAL COMO SE REQUIERE O NO
-                             cout << "ya jugo su mano " << nombre_j1 << ", ahora sigue " << nombre_j2 << endl;
-                             lanzo_dado=nombre_j2;
+                             if(B_CORTE_JUEGO != true){
+                            cout << "ya jugo su mano " << nombre_j1 << ", ahora sigue " << nombre_j2 << endl;
+                            lanzo_dado=nombre_j2;
+                            }
                             }else if(lanzo_dado == nombre_j2){
                             dado_j2 = lanzar_dado();
                             cout << endl << endl;
@@ -206,8 +212,10 @@ int main()
                                 break;
                                 }
                                 verificar_ganador(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2, nombre_ganador, ganar_partida, ganar_dado3, carta_mal_ubicada, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2, ganar_sin_robo, bandera_sin_pasar_deturnoj1, bandera_sin_pasar_deturnoj2, ganar_sin_pasarturno);
-                                cout << "ya jugo su mano " << nombre_j2 << ", ahora sigue " << nombre_j1 << endl;
-                                lanzo_dado=nombre_j1;
+                                if(B_CORTE_JUEGO != true){
+                            cout << "ya jugo su mano " << nombre_j1 << ", ahora sigue " << nombre_j2 << endl;
+                            lanzo_dado=nombre_j2;
+                            }
                             }
                         }
             case 2:
