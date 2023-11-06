@@ -806,7 +806,36 @@ void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
 
         corral_j1[carta_intercambiada - 1][0] = carta_elegida[0]; // en el corral del otro guardo la carta elegida (auxiliar)
         corral_j1[carta_intercambiada - 1][1] = carta_elegida[1];
-        // lo q puso aylin de cartas bloqueadas
+        // Aca pregunta las cartas bloqueadas
+        
+        // Si la primera carta esta bloqueada y la segunda NO
+        // Si la segunda carta esta bloqueada y la primera NO
+        
+        if ((cartas_bloqueadas_j2[carta-1][0]== true && cartas_bloqueadas_j2[carta-1][1]==true)) // aca pregunta si la primer carta elegida esta bloqueada 
+        {
+            if((cartas_bloqueadas_j1[carta_intercambiada-1][0]==false && cartas_bloqueadas_j1[carta_intercambiada-1][1]== false)){   // aca pregunta si la segunda carta elegida No esta bloqueada 
+                
+                cartas_bloqueadas_j1[carta_intercambiada-1][0]=true;
+                cartas_bloqueadas_j1[carta_intercambiada-1][1]=true;
+                
+                cartas_bloqueadas_j2[carta-1][0]=false;
+                cartas_bloqueadas_j2[carta-1][1]=false;
+            }
+        }
+        
+        else {
+            if((cartas_bloqueadas_j2[carta-1][0]=false && cartas_bloqueadas_j2[carta-1][1]== false)) { // aca pregunto si la primer carta elegida no esta bloqueada
+                if((cartas_bloqueadas_j1[carta_intercambiada-1][0]==true && cartas_bloqueadas_j1[carta_intercambiada-1][1]==true)) { // aca pregunto si la segunda carta elegida Esta bloqueada
+                    
+                    cartas_bloqueadas_j1[carta_intercambiada-1][0]=false;
+                    cartas_bloqueadas_j1[carta_intercambiada-1][1]=false;
+                    
+                    cartas_bloqueadas_j2[carta-1][0]=true;
+                    cartas_bloqueadas_j2[carta-1][1]=true;
+                }
+            }
+        }
+        
 
 
         cout << "-----------------------------------------------------" << endl;
@@ -865,7 +894,39 @@ void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
          corral_j2[carta_intercambiada - 1][0] = carta_elegida[0]; // intercambio de la segunda carta por la auxiliar
         corral_j2[carta_intercambiada - 1][1] = carta_elegida[1];
          /// lo q puso aylin de bloqueadas
-         // cuidado con las posici
+         // cuidado con las posiciones
+         
+         
+         // Si la primera carta esta bloqueada y la segunda NO
+        // Si la segunda carta esta bloqueada y la primera NO
+        
+        if ((cartas_bloqueadas_j1[carta-1][0]== true && cartas_bloqueadas_j1[carta-1][1]==true)) // aca pregunta si la primer carta elegida esta bloqueada 
+        {
+            if((cartas_bloqueadas_j2[carta_intercambiada-1][0]==false && cartas_bloqueadas_j2[carta_intercambiada-1][1]== false)){   // aca pregunta si la segunda carta elegida No esta bloqueada 
+                
+                cartas_bloqueadas_j2[carta_intercambiada-1][0]=true;
+                cartas_bloqueadas_j2[carta_intercambiada-1][1]=true;
+                
+                cartas_bloqueadas_j1[carta-1][0]=false;
+                cartas_bloqueadas_j1[carta-1][1]=false;
+            }
+        }
+        
+        else {
+            if((cartas_bloqueadas_j1[carta-1][0]=false && cartas_bloqueadas_j1[carta-1][1]== false)) { // aca pregunto si la primer carta elegida no esta bloqueada
+                if((cartas_bloqueadas_j2[carta_intercambiada-1][0]==true && cartas_bloqueadas_j2[carta_intercambiada-1][1]==true)) { // aca pregunto si la segunda carta elegida Esta bloqueada
+                    
+                    cartas_bloqueadas_j2[carta_intercambiada-1][0]=false;
+                    cartas_bloqueadas_j2[carta_intercambiada-1][1]=false;
+                    
+                    cartas_bloqueadas_j1[carta-1][0]=true;
+                    cartas_bloqueadas_j1[carta-1][1]=true;
+                }
+            }
+        }
+         
+         
+         
 
         cout << "-----------------------------------------------------" << endl;
         cout << "Se intercambio la carta #" << carta << " por la #" << carta_intercambiada << endl;
