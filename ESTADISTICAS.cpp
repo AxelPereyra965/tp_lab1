@@ -836,6 +836,7 @@ void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
     int carta_intercambiada;
     string numero_carta, numero_palo;
     string carta_elegida[2];
+    bool bandera_carta_bloqueada= false;
 
     if(lanzo_dado==nombre_j2){
         if(B_JUGADOR_BLOQUEADOR1){
@@ -855,7 +856,7 @@ void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
         cout << "#5 : " << corral_j2[4][0] << " " << corral_j2[4][1] << endl;
         cout << "------------------------------------------" << endl;
         cin >> carta;
-
+        
         numero_carta = corral_j2[carta - 1][0]; //se guarda el numero de la carta elegida
         numero_palo = corral_j2[carta - 1][1]; // aca el palo de la carta
 
@@ -873,43 +874,45 @@ void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
 
         cout << "------------------------------------------" << endl;
         cin >> carta_intercambiada;//la carta del corral contrario
+        
+        while(bandera_carta_bloqueada==false){
+        
+            if((cartas_bloqueadas_j1[carta_intercambiada-1][0]==false && cartas_bloqueadas_j1[carta_intercambiada-1][1]== false)){   // aca pregunta si la segunda carta elegida No esta bloqueada
 
 
+                cartas_bloqueadas_j2[carta-1][0]=false;
+                cartas_bloqueadas_j2[carta-1][1]=false;
+                bandera_carta_bloqueada=true;
+            }
+        
+        else {
+
+                    cout << " ESTA CARTA ESTA BLOQUEADA, ELIGA OTRA POR FAVOR " << endl;
+                        
+                    cout << "  SELECCIONE POR QUE CARTA DESEA INTERCAMBIARLA DEL CORRAL DE "<< nombre_j1 << endl;
+         cout << "------------------------------------------" << endl;
+    cout << "#1 : " << corral_j1 [0][0] << " " << corral_j1 [0][1] << endl;
+    cout << "#2 : " << corral_j1 [1][0] << " " << corral_j1 [1][1] << endl;
+    cout << "#3 : " << corral_j1 [2][0] << " " << corral_j1 [2][1] << endl;
+    cout << "#4 : " << corral_j1 [3][0] << " " << corral_j1 [3][1] << endl;
+    cout << "#5 : " << corral_j1 [4][0] << " " << corral_j1 [4][1] << endl;
+    cout << "------------------------------------------" << endl;
+
+        cout << "------------------------------------------" << endl;
+        cin >> carta_intercambiada;//la carta del corral contrario
+        bandera_carta_bloqueada=false;
+        
+                }
+            }
+    
         corral_j2[carta - 1][0] = corral_j1[carta_intercambiada - 1][0]; // en tu corral guardas la carta que elegiste del otro
         corral_j2[carta - 1][1] = corral_j1[carta_intercambiada - 1][1];
 
 
         corral_j1[carta_intercambiada - 1][0] = carta_elegida[0]; // en el corral del otro guardo la carta elegida (auxiliar)
         corral_j1[carta_intercambiada - 1][1] = carta_elegida[1];
-         // Aca pregunta las cartas bloqueadas
+         
 
-        // Si la primera carta esta bloqueada y la segunda NO
-        // Si la segunda carta esta bloqueada y la primera NO
-
-        if ((cartas_bloqueadas_j2[carta-1][0]== true && cartas_bloqueadas_j2[carta-1][1]==true)) // aca pregunta si la primer carta elegida esta bloqueada
-        {
-            if((cartas_bloqueadas_j1[carta_intercambiada-1][0]==false && cartas_bloqueadas_j1[carta_intercambiada-1][1]== false)){   // aca pregunta si la segunda carta elegida No esta bloqueada
-
-                cartas_bloqueadas_j1[carta_intercambiada-1][0]=true;
-                cartas_bloqueadas_j1[carta_intercambiada-1][1]=true;
-
-                cartas_bloqueadas_j2[carta-1][0]=false;
-                cartas_bloqueadas_j2[carta-1][1]=false;
-            }
-        }
-
-        else {
-            if((cartas_bloqueadas_j2[carta-1][0]=false && cartas_bloqueadas_j2[carta-1][1]== false)) { // aca pregunto si la primer carta elegida no esta bloqueada
-                if((cartas_bloqueadas_j1[carta_intercambiada-1][0]==true && cartas_bloqueadas_j1[carta_intercambiada-1][1]==true)) { // aca pregunto si la segunda carta elegida Esta bloqueada
-
-                    cartas_bloqueadas_j1[carta_intercambiada-1][0]=false;
-                    cartas_bloqueadas_j1[carta_intercambiada-1][1]=false;
-
-                    cartas_bloqueadas_j2[carta-1][0]=true;
-                    cartas_bloqueadas_j2[carta-1][1]=true;
-                }
-            }
-        }
 
         cout << "-----------------------------------------------------" << endl;
         cout << "Se intercambio la carta #" << carta << " por la #" << carta_intercambiada << endl;
@@ -963,6 +966,36 @@ void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
 
         cout << "------------------------------------------" << endl;
         cin >> carta_intercambiada;
+        
+        while(bandera_carta_bloqueada==false){
+        
+            if((cartas_bloqueadas_j2[carta_intercambiada-1][0]==false && cartas_bloqueadas_j2[carta_intercambiada-1][1]== false)){   // aca pregunta si la segunda carta elegida No esta bloqueada
+
+
+                cartas_bloqueadas_j1[carta-1][0]=false;
+                cartas_bloqueadas_j1[carta-1][1]=false;
+                bandera_carta_bloqueada=true;
+            }
+        
+        else {
+
+                    cout << " ESTA CARTA ESTA BLOQUEADA, ELIGA OTRA POR FAVOR " << endl;
+                        
+                    cout << "  SELECCIONE POR QUE CARTA DESEA INTERCAMBIARLA DEL CORRAL DE "<< nombre_j2 << endl;
+         cout << "------------------------------------------" << endl;
+    cout << "#1 : " << corral_j2 [0][0] << " " << corral_j2 [0][1] << endl;
+    cout << "#2 : " << corral_j2 [1][0] << " " << corral_j2 [1][1] << endl;
+    cout << "#3 : " << corral_j2 [2][0] << " " << corral_j2 [2][1] << endl;
+    cout << "#4 : " << corral_j2 [3][0] << " " << corral_j2 [3][1] << endl;
+    cout << "#5 : " << corral_j2 [4][0] << " " << corral_j2 [4][1] << endl;
+    cout << "------------------------------------------" << endl;
+
+        cout << "------------------------------------------" << endl;
+        cin >> carta_intercambiada;//la carta del corral contrario
+        bandera_carta_bloqueada=false;
+        
+                }
+            }
 
         corral_j1[carta - 1][0] = corral_j2[carta_intercambiada - 1][0]; // intercambio de la primera carta seleccionada
         corral_j1[carta - 1][1] = corral_j2[carta_intercambiada - 1][1];
@@ -970,37 +1003,7 @@ void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
 
          corral_j2[carta_intercambiada - 1][0] = carta_elegida[0]; // intercambio de la segunda carta por la auxiliar
         corral_j2[carta_intercambiada - 1][1] = carta_elegida[1];
-         /// lo q puso aylin de bloqueadas
-         // cuidado con las posiciones
-
-
-         // Si la primera carta esta bloqueada y la segunda NO
-        // Si la segunda carta esta bloqueada y la primera NO
-
-        if ((cartas_bloqueadas_j1[carta-1][0]== true && cartas_bloqueadas_j1[carta-1][1]==true)) // aca pregunta si la primer carta elegida esta bloqueada
-        {
-            if((cartas_bloqueadas_j2[carta_intercambiada-1][0]==false && cartas_bloqueadas_j2[carta_intercambiada-1][1]== false)){   // aca pregunta si la segunda carta elegida No esta bloqueada
-
-                cartas_bloqueadas_j2[carta_intercambiada-1][0]=true;
-                cartas_bloqueadas_j2[carta_intercambiada-1][1]=true;
-
-                cartas_bloqueadas_j1[carta-1][0]=false;
-                cartas_bloqueadas_j1[carta-1][1]=false;
-            }
-        }
-
-        else {
-            if((cartas_bloqueadas_j1[carta-1][0]=false && cartas_bloqueadas_j1[carta-1][1]== false)) { // aca pregunto si la primer carta elegida no esta bloqueada
-                if((cartas_bloqueadas_j2[carta_intercambiada-1][0]==true && cartas_bloqueadas_j2[carta_intercambiada-1][1]==true)) { // aca pregunto si la segunda carta elegida Esta bloqueada
-
-                    cartas_bloqueadas_j2[carta_intercambiada-1][0]=false;
-                    cartas_bloqueadas_j2[carta_intercambiada-1][1]=false;
-
-                    cartas_bloqueadas_j1[carta-1][0]=true;
-                    cartas_bloqueadas_j1[carta-1][1]=true;
-                }
-            }
-        }
+         
 
         cout << "-----------------------------------------------------" << endl;
         cout << "Se intercambio la carta #" << carta << " por la #" << carta_intercambiada << endl;
@@ -1018,10 +1021,6 @@ void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
         }
     }
 }
-
-
-
-
 
 
 //funcion para la cara 4 del dado
