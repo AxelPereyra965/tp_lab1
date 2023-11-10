@@ -899,7 +899,7 @@ void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
     cout << "------------------------------------------" << endl;
 
         cout << "------------------------------------------" << endl;
-        cin >> carta_intercambiada;//la carta del corral contrario
+        cin >> carta_intercambiada;//la carta de tu corral
         bandera_carta_bloqueada=false;
 
                 }
