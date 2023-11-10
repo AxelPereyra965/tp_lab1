@@ -256,11 +256,16 @@ int main()
             break;
 
             case 3:
-                cout<<"                                                JUEGO DESARROLLADO POR: "<<endl;
-                cout<<"                                                     PEREYRA AXEL"<<endl;
-                cout<<"                                                     LUCAS JUAREZ"<<endl;
-                cout<<"                                                   AYLIN PANIAGUA"<<endl;
-                cout<<"                                               SANTIAGO PAULOVICH"<<endl;
+               cout << endl;
+                cout << setw(47) << "===============================================" << endl;
+                cout<< setw(13) << "|"<< setw(33) << "DESARROLADORES DEL JUEGO"  << left << "|" << endl;
+                cout << setw(61) << "===============================================" << endl;
+                cout<< setw(15) << "|"<< setw(30) << "  PEREYRA, AXEL  " << left << " |" << endl;
+                cout<< setw(15) << "|"<< setw(30) << "   PANIAGUA, AYLIN   " << left << " |" << endl; 
+                cout<< setw(15) << "|"<< setw(30) << "  PAULOVICH, SANTIAGO  " << left << " |" << endl;
+                cout<< setw(15) << "|"<< setw(30) << "  JUAREZ, LUCAS " << left << " |" << endl;
+                cout << setw(61) << "===============================================" << endl;
+                cout << "(POSTDATA; TA LINDO EL JUEGO PROFE, APRUEBENOS ;) )" << endl;
                 cout<<endl;
 
                 break;
