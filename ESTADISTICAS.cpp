@@ -15,6 +15,7 @@ void repartir_cartas_j2(bool (&cartas_usando)[5][4], string nombre_j2, string co
 void empieza_primero(string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &nombre_j1, string &nombre_j2, string &INICIA_PARTIDA, string &carta_repetida);
 void verificar_ganador(bool &B_CORTE_JUEGO, string corral_j1[][2], string corral_j2[][2], string numero_cartas[5], string &lanzo_dado, string nombre_j1, string nombre_j2, string &nombre_ganador, int &ganar_partida, int &ganar_dado3, int &carta_mal_ubicada, bool &ganar_sin_sufrir_robo_j1, bool &ganar_sin_sufrir_robo_j2, int &ganar_sin_robo, bool &bandera_sin_pasar_deturnoj1, bool &bandera_sin_pasar_deturnoj2, int &ganar_sin_pasarturno);
 bool comparar_cartas(string (&corral_j1)[5][2], string (&corral_j2)[5][2]);
+void mostrar_ambos_corrales(string corral_j1[][2], string corral_j2[][2], string nombre_j1, string nombre_j2);
 int lanzar_dado(const int caras_dado = 6);
 //FUNCIONES DE OPCIONES DEL DADO
 void OPCION_DADO_1(string (&mazo)[5][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2);
@@ -114,7 +115,8 @@ int main()
                          }
                         verificar_ganador(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2, nombre_ganador, ganar_partida, ganar_dado3, carta_mal_ubicada, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2, ganar_sin_robo, bandera_sin_pasar_deturnoj1, bandera_sin_pasar_deturnoj2, ganar_sin_pasarturno);
                         if(B_CORTE_JUEGO != true){
-                            cout << "ya jugo su mano " << nombre_j1 << ", ahora sigue " << nombre_j2 << endl;
+                            cout << "ya jugo su mano " << nombre_j1 << ", ahora sigue " << nombre_j2 << endl << endl;
+                            mostrar_ambos_corrales(corral_j1, corral_j2, nombre_j1, nombre_j2);
                             lanzo_dado=nombre_j2;
                         }
                      }else{
@@ -146,7 +148,8 @@ int main()
                          }
                         verificar_ganador(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2, nombre_ganador, ganar_partida, ganar_dado3, carta_mal_ubicada, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2, ganar_sin_robo, bandera_sin_pasar_deturnoj1, bandera_sin_pasar_deturnoj2, ganar_sin_pasarturno);
                         if(B_CORTE_JUEGO != true){
-                            cout << "ya jugo su mano " << nombre_j2 << ", ahora sigue " << nombre_j1 << endl;
+                           cout << "ya jugo su mano " << nombre_j2 << ", ahora sigue " << nombre_j1 << endl << endl;
+                            mostrar_ambos_corrales(corral_j1, corral_j2, nombre_j1, nombre_j2);
                             lanzo_dado=nombre_j1;
                         }
                      }
@@ -183,7 +186,8 @@ int main()
                              }
                              verificar_ganador(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2, nombre_ganador, ganar_partida, ganar_dado3, carta_mal_ubicada, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2, ganar_sin_robo, bandera_sin_pasar_deturnoj1, bandera_sin_pasar_deturnoj2, ganar_sin_pasarturno); ///VERIFICAMOS SI EL CORRAL ESTA ORDENADO TAL COMO SE REQUIERE O NO
                              if(B_CORTE_JUEGO != true){
-                                cout << "ya jugo su mano " << nombre_j1 << ", ahora sigue " << nombre_j2 << endl;
+                                cout << "ya jugo su mano " << nombre_j1 << ", ahora sigue " << nombre_j2 << endl << endl;
+                                mostrar_ambos_corrales(corral_j1, corral_j2, nombre_j1, nombre_j2);
                                 lanzo_dado=nombre_j2;
                              }
                             }else if(lanzo_dado == nombre_j2){
@@ -217,7 +221,8 @@ int main()
                                 }
                                 verificar_ganador(B_CORTE_JUEGO, corral_j1, corral_j2, numero_cartas, lanzo_dado, nombre_j1, nombre_j2, nombre_ganador, ganar_partida, ganar_dado3, carta_mal_ubicada, ganar_sin_sufrir_robo_j1, ganar_sin_sufrir_robo_j2, ganar_sin_robo, bandera_sin_pasar_deturnoj1, bandera_sin_pasar_deturnoj2, ganar_sin_pasarturno);
                                 if(B_CORTE_JUEGO != true){
-                                    cout << "ya jugo su mano " << nombre_j2 << ", ahora sigue " << nombre_j1 << endl;
+                                    cout << "ya jugo su mano " << nombre_j2 << ", ahora sigue " << nombre_j1 << endl << endl;
+                                    mostrar_ambos_corrales(corral_j1, corral_j2, nombre_j1, nombre_j2);
                                     lanzo_dado=nombre_j1;
                                 }
                             }
@@ -538,6 +543,29 @@ bool comparar_cartas(string (&corral_j1)[5][2], string (&corral_j2)[5][2])
             }
 }
 
+void mostrar_ambos_corrales(string corral_j1[][2], string corral_j2[][2], string nombre_j1, string nombre_j2)
+{
+            cout << setfill(' ');
+            cout << "------------------------------------------" << endl;
+            cout << "|" << "             MAZO DE "<< nombre_j1 << "                 " << endl;
+            cout << "------------------------------------------" << endl;
+            cout << setw(15) << "|"<< setw(3) << corral_j1 [0][0] << " " << corral_j1 [0][1] <<endl;
+            cout << setw(15) << "|"<< setw(3) << corral_j1 [1][0] << " " << corral_j1 [1][1] <<endl;
+            cout << setw(15) << "|"<< setw(3) << corral_j1 [2][0] << " " << corral_j1 [2][1] <<endl;
+            cout << setw(15) << "|"<< setw(3) << corral_j1 [3][0] << " " << corral_j1 [3][1] <<endl;
+            cout << setw(15) << "|"<< setw(3) << corral_j1 [4][0] << " " << corral_j1 [4][1] <<endl;
+            cout << "|"<< endl;
+            cout << "------------------------------------------" << endl;
+            cout << "|" << "             MAZO DE "<< nombre_j2 << "                 " << endl;
+            cout << "------------------------------------------" << endl;
+            cout << setw(15) << "|"<< setw(3) << corral_j2 [0][0] << " " << corral_j2 [0][1] <<endl;
+            cout << setw(15) << "|"<< setw(3) << corral_j2 [1][0] << " " << corral_j2 [1][1] <<endl;
+            cout << setw(15) << "|"<< setw(3) << corral_j2 [2][0] << " " << corral_j2 [2][1] <<endl;
+            cout << setw(15) << "|"<< setw(3) << corral_j2 [3][0] << " " << corral_j2 [3][1] <<endl;
+            cout << setw(15) << "|"<< setw(3) << corral_j2 [4][0] << " " << corral_j2 [4][1] <<endl;
+            cout << "------------------------------------------" << endl;
+}
+
 //funcion dado 1
 void OPCION_DADO_1(string (&mazo)[5][4], string numero_cartas[5], string tipo_palo[4], string (&corral_j1)[5][2], string (&corral_j2) [5][2], bool (&cartas_usando) [5][4], string &lanzo_dado, string nombre_j1, string nombre_j2){
     int CARTA = 0, NEW_NUM = 0, NEW_PALO;
@@ -593,14 +621,7 @@ void OPCION_DADO_1(string (&mazo)[5][4], string numero_cartas[5], string tipo_pa
     cout << "la carta intercambiada fue " << CARTA_INTERCAMBIADA_NUMERO << " de " << CARTA_INTERCAMBIADA_PALO;
     cout << ", que fue cambiada por " << CARTA_ACTUAL << " de " << PALO_ACTUAL << endl;
     cout << endl;
-    cout << "   MAZO ACTUAL DEL JUGADOR " << nombre_j1 << endl;
-    cout << "-----------------------------------------" << endl;
-    cout << "#1 : " << corral_j1 [0][0] << " " << corral_j1 [0][1] << endl;
-    cout << "#2 : " << corral_j1 [1][0] << " " << corral_j1  [1][1] << endl; ///MAZO DESPUES DE CAMBIAR CARTA
-    cout << "#3 : " << corral_j1  [2][0] << " " << corral_j1  [2][1] << endl;
-    cout << "#4 : " << corral_j1  [3][0] << " " << corral_j1  [3][1] << endl;
-    cout << "#5 : " << corral_j1  [4][0] << " " << corral_j1  [4][1] << endl;
-    cout << "------------------------------------------" << endl;
+        
 ////////////HASTA ACA LA OPCION J1, AHORA EMPIEZA LA OPCION DEL J2/////////////////////////////
     }else if(lanzo_dado == nombre_j2){
     cout << endl;
@@ -648,14 +669,7 @@ void OPCION_DADO_1(string (&mazo)[5][4], string numero_cartas[5], string tipo_pa
     cout << "la carta intercambiada fue " << CARTA_INTERCAMBIADA_NUMERO << " de " << CARTA_INTERCAMBIADA_PALO;
     cout << ", que fue cambiada por " << CARTA_ACTUAL << " de " << PALO_ACTUAL << endl;
     cout << endl;
-    cout << "   MAZO ACTUAL DEL JUGADOR " << nombre_j2 << endl;
-    cout << "-----------------------------------------" << endl;
-    cout << "#1 : " << corral_j2 [0][0] << " " << corral_j2 [0][1] << endl;
-    cout << "#2 : " << corral_j2 [1][0] << " " << corral_j2  [1][1] << endl; ///MAZO DESPUES DE CAMBIAR CARTA
-    cout << "#3 : " << corral_j2  [2][0] << " " << corral_j2  [2][1] << endl;
-    cout << "#4 : " << corral_j2  [3][0] << " " << corral_j2  [3][1] << endl;
-    cout << "#5 : " << corral_j2  [4][0] << " " << corral_j2  [4][1] << endl;
-    cout << "------------------------------------------" << endl;
+    
     }
 }
 
@@ -737,14 +751,7 @@ void OPCION_DADO_2(string (&mazo)[5][4], string numero_cartas[], string tipo_pal
     cout << "la carta intercambiada fue " << CARTA_INTERCAMBIADA_NUMERO << " de " << CARTA_INTERCAMBIADA_PALO;
     cout << ", que fue cambiada por " << CARTA_ACTUAL << " de " << PALO_ACTUAL << endl;
     cout << endl;
-    cout << "   MAZO ACTUAL DEL JUGADOR CONTRARIO DE " << nombre_j2 << endl;
-    cout << "-----------------------------------------" << endl;
-    cout << "#1 : " << corral_j2 [0][0] << " " << corral_j2 [0][1] << endl;
-    cout << "#2 : " << corral_j2 [1][0] << " " << corral_j2 [1][1] << endl;
-    cout << "#3 : " << corral_j2 [2][0] << " " << corral_j2 [2][1] << endl;
-    cout << "#4 : " << corral_j2 [3][0] << " " << corral_j2 [3][1] << endl;
-    cout << "#5 : " << corral_j2 [4][0] << " " << corral_j2 [4][1] << endl;
-    cout << "------------------------------------------" << endl;
+    
     }
 ////////////HASTA ACA LA OPCION J1, AHORA EMPIEZA LA OPCION DEL J2/////////////////////////////
     }else if(lanzo_dado == nombre_j2){
@@ -815,14 +822,7 @@ void OPCION_DADO_2(string (&mazo)[5][4], string numero_cartas[], string tipo_pal
     cout << "la carta intercambiada fue " << CARTA_INTERCAMBIADA_NUMERO << " de " << CARTA_INTERCAMBIADA_PALO;
     cout << ", que fue cambiada por " << CARTA_ACTUAL << " de " << PALO_ACTUAL << endl;
     cout << endl;
-    cout << "   MAZO ACTUAL DEL JUGADOR CONTRARIO " << nombre_j1 << endl;
-    cout << "------------------------------------------" << endl;
-    cout << "#1 : " << corral_j1 [0][0] << " " << corral_j1 [0][1] << endl;
-    cout << "#2 : " << corral_j1 [1][0] << " " << corral_j1 [1][1] << endl;
-    cout << "#3 : " << corral_j1 [2][0] << " " << corral_j1 [2][1] << endl;
-    cout << "#4 : " << corral_j1 [3][0] << " " << corral_j1 [3][1] << endl;
-    cout << "#5 : " << corral_j1 [4][0] << " " << corral_j1 [4][1] << endl;
-    cout << "------------------------------------------" << endl;
+    
     }
     }
 }
@@ -919,14 +919,6 @@ void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
         cout << "------------------------------------------------------" << endl;
         cout << endl;
 
-        cout << "      MAZO actualizado de " << nombre_j2 << endl;
-        cout << "------------------------------------------" << endl;
-        cout << "#1 : " << corral_j2[0][0] << " " << corral_j2[0][1] << endl;
-        cout << "#2 : " << corral_j2[1][0] << " " << corral_j2[1][1] << endl;
-        cout << "#3 : " << corral_j2[2][0] << " " << corral_j2[2][1] << endl;
-        cout << "#4 : " << corral_j2[3][0] << " " << corral_j2[3][1] << endl;
-        cout << "#5 : " << corral_j2[4][0] << " " << corral_j2[4][1] << endl;
-        cout<<endl;
         }
     }
 
@@ -1010,14 +1002,6 @@ void OPCION_DADO_3(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
         cout << "-----------------------------------------------------" << endl;
         cout << endl;
 
-        cout << "      MAZO actualizado de " << nombre_j1 << endl;
-        cout << "------------------------------------------" << endl;
-        cout << "#1 : " << corral_j1[0][0] << " " << corral_j1[0][1] << endl;
-        cout << "#2 : " << corral_j1[1][0] << " " << corral_j1[1][1] << endl;
-        cout << "#3 : " << corral_j1[2][0] << " " << corral_j1[2][1] << endl;
-        cout << "#4 : " << corral_j1[3][0] << " " << corral_j1[3][1] << endl;
-        cout << "#5 : " << corral_j1[4][0] << " " << corral_j1[4][1] << endl;
-        cout<<endl;
         }
     }
 }
@@ -1097,14 +1081,6 @@ void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
         cout << "------------------------------------------------------" << endl;
         cout << endl;
 
-        cout << "      MAZO actualizado de " << nombre_j2 << endl;
-        cout << "------------------------------------------" << endl;
-        cout << "#1 : " << corral_j2[0][0] << " " << corral_j2[0][1] << endl;
-        cout << "#2 : " << corral_j2[1][0] << " " << corral_j2[1][1] << endl;
-        cout << "#3 : " << corral_j2[2][0] << " " << corral_j2[2][1] << endl;
-        cout << "#4 : " << corral_j2[3][0] << " " << corral_j2[3][1] << endl;
-        cout << "#5 : " << corral_j2[4][0] << " " << corral_j2[4][1] << endl;
-        cout<<endl;
     }
     else
     {
@@ -1171,14 +1147,6 @@ void OPCION_DADO_4(string (&corral_j1)[5][2], string (&corral_j2)[5][2], string 
         cout << "-----------------------------------------------------" << endl;
         cout << endl;
 
-        cout << "      MAZO actualizado de " << nombre_j1 << endl;
-        cout << "------------------------------------------" << endl;
-        cout << "#1 : " << corral_j1[0][0] << " " << corral_j1[0][1] << endl;
-        cout << "#2 : " << corral_j1[1][0] << " " << corral_j1[1][1] << endl;
-        cout << "#3 : " << corral_j1[2][0] << " " << corral_j1[2][1] << endl;
-        cout << "#4 : " << corral_j1[3][0] << " " << corral_j1[3][1] << endl;
-        cout << "#5 : " << corral_j1[4][0] << " " << corral_j1[4][1] << endl;
-        cout<<endl;
     }
 }
 
@@ -1287,18 +1255,18 @@ void OPCION_DADO_6(string &lanzo_dado,string nombre_j1, string nombre_j2, string
     bool bandera = false;
 
     if(lanzo_dado == nombre_j2){
-            cout << endl;
-            cout << "OPCION #6: EL JUGADOR " << nombre_j2 << " TENDRA EL PODER DE ELEGIR TODAS LAS OPCIONES ANTERIORES... O PASAR" << endl;
-            cout << "===================================================================================================" << endl;
-            cout << "         SELECCIONE UNA ACCION  " << endl;
-            cout << "------------------------------------------" << endl;
-            cout << "#1 : Elegir una carta de tu propio corral y robar una carta del mazo" << endl;
-            cout << "#2 : Elegir una carta del corral CONTRARIO y reemplazarla por una del mazo" << endl;
-            cout << "#3 : Elegir una carta del corral propio e intercambiarla por una del contrario" << endl;
-            cout << "#4 : Intercambiar dos cartas del propio corral" << endl;
-            cout << "#5 : Bloquear una carta del corral (carta no elegible para la accion 2 y 3)" << endl;
-            cout << "#6 : Pasar de turno" << endl;
-            cout << "------------------------------------------" << endl;
+            cout << endl << setfill(' ');
+            cout << setw(6) << "|"<< "OPCION #6: EL JUGADOR " << nombre_j2 << setw(72) << " TENDRA EL PODER DE ELEGIR TODAS LAS OPCIONES ANTERIORES... O PASAR" << left << "|" << endl;
+            cout << "|" << "====================================================================================================" << left << "|" << endl;
+            cout << setw(28) << "|" << setw(73) << "         SELECCIONE UNA ACCION  " << left << "|" << endl;
+            cout << setw(19) << "|" << setw(82) << "------------------------------------------------------------------" << left << "|" << endl;
+            cout << setw(14)<< "|" << setw(87) << "#1 : Elegir una carta de tu propio corral y robar una carta del mazo" << left << "|" << endl;;
+            cout << setw(14)<< "|" << setw(87) << "#2 : Elegir una carta del corral CONTRARIO y reemplazarla por una del mazo" << left << "|" << endl;
+            cout << setw(14)<< "|" << setw(87) << "#3 : Elegir una carta del corral propio e intercambiarla por una del contrario" << left << "|" << endl;
+            cout << setw(14)<< "|" << setw(87) << "#4 : Intercambiar dos cartas del propio corral" << left << "|" << endl;
+            cout << setw(14)<< "|" << setw(87) << "#5 : Bloquear una carta del corral (carta no elegible para la accion 2 y 3)" << left << "|" << endl;
+            cout << setw(14)<< "|" << setw(87) << "#6 : Pasar de turno" << left << "|" << endl;
+            cout << setw(19) << "|" << setw(82) << "------------------------------------------------------------------" << left << "|" << endl;
             cin >> SELECTOR_ACCIONES;
 
             switch(SELECTOR_ACCIONES){
@@ -1323,33 +1291,34 @@ void OPCION_DADO_6(string &lanzo_dado,string nombre_j1, string nombre_j2, string
                 break;
                 default:
                 while(SELECTOR_ACCIONES < 1 || SELECTOR_ACCIONES > 6){
-                    cout << "OPCION INCORRECTA, ELIJA SOLO LAS SIGUIENTES: " << endl;
-                    cout << "------------------------------------------" << endl;
-                    cout << "         SELECCIONE UNA ACCION  " << endl;
-                    cout << "------------------------------------------" << endl;
-                    cout << "#1 : Elegir una carta de tu propio corral y robar una carta del mazo" << endl;
-                    cout << "#2 : Elegir una carta del corral CONTRARIO y reemplazarla por una del mazo" << endl;
-                    cout << "#3 : Elegir una carta del corral propio e intercambiarla por una del contrario" << endl;
-                    cout << "#4 : Intercambiar dos cartas del propio corral" << endl;
-                    cout << "#5 : Bloquear una carta del corral (carta no elegible para la accion 2 y 3)" << endl;
-                    cout << "#6 : Pasar de turno" << endl;
+                    cout << endl;
+                    cout << "OPCION INCORRECTA, ELIJA SOLO LAS SIGUIENTES: " << endl << endl;
+                    cout << setw(28) << "|" << setw(73) << "         SELECCIONE UNA ACCION  " << left << "|" << endl;
+                    cout << setw(19) << "|" << setw(82) << "------------------------------------------------------------------" << left << "|" << endl;
+                    cout << setw(14)<< "|" << setw(87) << "#1 : Elegir una carta de tu propio corral y robar una carta del mazo" << left << "|" << endl;;
+                    cout << setw(14)<< "|" << setw(87) << "#2 : Elegir una carta del corral CONTRARIO y reemplazarla por una del mazo" << left << "|" << endl;
+                    cout << setw(14)<< "|" << setw(87) << "#3 : Elegir una carta del corral propio e intercambiarla por una del contrario" << left << "|" << endl;
+                    cout << setw(14)<< "|" << setw(87) << "#4 : Intercambiar dos cartas del propio corral" << left << "|" << endl;
+                    cout << setw(14)<< "|" << setw(87) << "#5 : Bloquear una carta del corral (carta no elegible para la accion 2 y 3)" << left << "|" << endl;
+                    cout << setw(14)<< "|" << setw(87) << "#6 : Pasar de turno" << left << "|" << endl;
+                    cout << setw(19) << "|" << setw(82) << "------------------------------------------------------------------" << left << "|" << endl;
                     cin >> SELECTOR_ACCIONES;
                 }
                 break;
             }
     }else{
-            cout << endl;
-            cout << "OPCION #6: EL JUGADOR " << nombre_j1 << " TENDRA EL PODER DE ELEGIR TODAS LAS OPCIONES ANTERIORES... O PASAR" << endl;
-            cout << "===================================================================================================" << endl;
-            cout << "         SELECCIONE UNA ACCION  " << endl;
-            cout << "------------------------------------------" << endl;
-            cout << "#1 : Elegir una carta de tu propio corral y robar una carta del mazo" << endl;
-            cout << "#2 : Elegir una carta del corral CONTRARIO y reemplazarla por una del mazo" << endl;
-            cout << "#3 : Elegir una carta del corral propio e intercambiarla por una del contrario" << endl;
-            cout << "#4 : Intercambiar dos cartas del propio corral" << endl;
-            cout << "#5 : Bloquear una carta del corral (carta no elegible para la accion 2 y 3)" << endl;
-            cout << "#6 : Pasar de turno" << endl;
-            cout << "------------------------------------------" << endl;
+           cout << endl << setfill(' ');
+            cout << setw(6) << "|"<< "OPCION #6: EL JUGADOR " << nombre_j1 << setw(72) << " TENDRA EL PODER DE ELEGIR TODAS LAS OPCIONES ANTERIORES... O PASAR" << left << "|" << endl;
+            cout << "|" << "====================================================================================================" << left << "|" << endl;
+            cout << setw(28) << "|" << setw(73) << "         SELECCIONE UNA ACCION  " << left << "|" << endl;
+            cout << setw(19) << "|" << setw(82) << "------------------------------------------------------------------" << left << "|" << endl;
+            cout << setw(14)<< "|" << setw(87) << "#1 : Elegir una carta de tu propio corral y robar una carta del mazo" << left << "|" << endl;;
+            cout << setw(14)<< "|" << setw(87) << "#2 : Elegir una carta del corral CONTRARIO y reemplazarla por una del mazo" << left << "|" << endl;
+            cout << setw(14)<< "|" << setw(87) << "#3 : Elegir una carta del corral propio e intercambiarla por una del contrario" << left << "|" << endl;
+            cout << setw(14)<< "|" << setw(87) << "#4 : Intercambiar dos cartas del propio corral" << left << "|" << endl;
+            cout << setw(14)<< "|" << setw(87) << "#5 : Bloquear una carta del corral (carta no elegible para la accion 2 y 3)" << left << "|" << endl;
+            cout << setw(14)<< "|" << setw(87) << "#6 : Pasar de turno" << left << "|" << endl;
+            cout << setw(19) << "|" << setw(82) << "------------------------------------------------------------------" << left << "|" << endl;
             cin >> SELECTOR_ACCIONES;
 
             switch(SELECTOR_ACCIONES){
@@ -1374,16 +1343,17 @@ void OPCION_DADO_6(string &lanzo_dado,string nombre_j1, string nombre_j2, string
                 break;
                 default:
                 while(SELECTOR_ACCIONES < 1 || SELECTOR_ACCIONES > 6){
-                    cout << "OPCION INCORRECTA, ELIJA SOLO LAS SIGUIENTES: " << endl;
-                    cout << "------------------------------------------" << endl;
-                    cout << "         SELECCIONE UNA ACCION  " << endl;
-                    cout << "------------------------------------------" << endl;
-                    cout << "#1 : Elegir una carta de tu propio corral y robar una carta del mazo" << endl;
-                    cout << "#2 : Elegir una carta del corral CONTRARIO y reemplazarla por una del mazo" << endl;
-                    cout << "#3 : Elegir una carta del corral propio e intercambiarla por una del contrario" << endl;
-                    cout << "#4 : Intercambiar dos cartas del propio corral" << endl;
-                    cout << "#5 : Bloquear una carta del corral (carta no elegible para la accion 2 y 3)" << endl;
-                    cout << "#6 : Pasar de turno" << endl;
+                    cout << endl;
+                    cout << "OPCION INCORRECTA, ELIJA SOLO LAS SIGUIENTES: " << endl << endl;
+                    cout << setw(28) << "|" << setw(73) << "         SELECCIONE UNA ACCION  " << left << "|" << endl;
+                    cout << setw(19) << "|" << setw(82) << "------------------------------------------------------------------" << left << "|" << endl;
+                    cout << setw(14)<< "|" << setw(87) << "#1 : Elegir una carta de tu propio corral y robar una carta del mazo" << left << "|" << endl;;
+                    cout << setw(14)<< "|" << setw(87) << "#2 : Elegir una carta del corral CONTRARIO y reemplazarla por una del mazo" << left << "|" << endl;
+                    cout << setw(14)<< "|" << setw(87) << "#3 : Elegir una carta del corral propio e intercambiarla por una del contrario" << left << "|" << endl;
+                    cout << setw(14)<< "|" << setw(87) << "#4 : Intercambiar dos cartas del propio corral" << left << "|" << endl;
+                    cout << setw(14)<< "|" << setw(87) << "#5 : Bloquear una carta del corral (carta no elegible para la accion 2 y 3)" << left << "|" << endl;
+                    cout << setw(14)<< "|" << setw(87) << "#6 : Pasar de turno" << left << "|" << endl;
+                    cout << setw(19) << "|" << setw(82) << "------------------------------------------------------------------" << left << "|" << endl;
                     cin >> SELECTOR_ACCIONES;
                 }
                 break;
